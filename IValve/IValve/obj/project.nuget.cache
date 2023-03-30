@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "svA0skmddgItfSe6iMK0wsEn3KR2aCDs809teKENAP85kOCl6ohABR617xqNvkka4IRL856SoXhw0FvyxqNBzA==",
+  "success": true,
+  "projectFilePath": "C:\\dev\\C#\\IValveProject\\IValve\\IValve\\IValve.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lukis\\.nuget\\packages\\microsoft.netcore.platforms\\3.0.0\\microsoft.netcore.platforms.3.0.0.nupkg.sha512",
+    "C:\\Users\\lukis\\.nuget\\packages\\microsoft.win32.systemevents\\4.6.0\\microsoft.win32.systemevents.4.6.0.nupkg.sha512",
+    "C:\\Users\\lukis\\.nuget\\packages\\stylet\\1.3.6\\stylet.1.3.6.nupkg.sha512",
+    "C:\\Users\\lukis\\.nuget\\packages\\system.drawing.common\\4.6.0\\system.drawing.common.4.6.0.nupkg.sha512"
+  ],
+  "logs": []
+}
