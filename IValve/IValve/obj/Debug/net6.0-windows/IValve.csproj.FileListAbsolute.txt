@@ -25,8 +25,6 @@ C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\IValve.genruntime
 C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\ref\IValve.dll
 C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\TestView.g.cs
 C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\TestView.baml
-C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\Test1View.g.cs
-C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\Test1View.baml
 C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\Test2View.g.cs
 C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\Test2View.baml
 C:\dev\C#\IValveProject\IValve\IValve\bin\Debug\net6.0-windows\Dapper.dll
@@ -57,3 +55,5 @@ C:\dev\C#\IValveProject\IValve\IValve\bin\Debug\net6.0-windows\DataAccessLibrary
 C:\dev\C#\IValveProject\IValve\IValve\bin\Debug\net6.0-windows\DataAccessLibrary.pdb
 C:\dev\C#\IValveProject\IValve\IValve\bin\Debug\net6.0-windows\DataAccessLibrary.dll.config
 C:\dev\C#\IValveProject\IValve\IValve\bin\Debug\net6.0-windows\IValve.dll.config
+C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\PersonView.g.cs
+C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\PersonView.baml

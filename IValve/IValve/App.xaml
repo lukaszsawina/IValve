@@ -4,10 +4,15 @@
              xmlns:s="https://github.com/canton7/Stylet"
              xmlns:local="clr-namespace:IValve">
     <Application.Resources>
+
         <s:ApplicationLoader>
             <s:ApplicationLoader.Bootstrapper>
                 <local:Bootstrapper/>
+
             </s:ApplicationLoader.Bootstrapper>
+
         </s:ApplicationLoader>
+
     </Application.Resources>
+    
 </Application>

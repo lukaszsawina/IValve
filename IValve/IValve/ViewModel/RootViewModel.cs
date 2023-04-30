@@ -11,17 +11,17 @@ namespace IValve.ViewModel
     
     public class RootViewModel : Conductor<IScreen>.StackNavigation
     {
-        public Test1ViewModel Test1 { get; private set; }
+        public PersonViewModel PersonView { get; private set; }
         public Test2ViewModel Test2 { get; private set; }
-        public RootViewModel(Test1ViewModel test, Test2ViewModel test2)
+        public RootViewModel(PersonViewModel person, Test2ViewModel test2)
         {
-            Test1 = test;
+            PersonView = person;
             Test2 = test2;
-            this.ActivateItem(Test1);
+            this.ActivateItem(PersonView);
         }
         public void OpenPerson()
         {
-            this.ActivateItem(Test1);
+            this.ActivateItem(PersonView);
         }
         public void OpenRooms()
         {

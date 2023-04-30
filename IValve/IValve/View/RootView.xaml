@@ -10,16 +10,17 @@
 
     <Window.Resources>
         <Style TargetType="Button">
-            <Setter Property="Background" Value="Gray" ></Setter>
+            <Setter Property="Background" Value="#424242" ></Setter>
+            <Setter Property="Foreground" Value="#FAF9F7"></Setter>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Grid Background="{TemplateBinding Background}">
+                        <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <Border Grid.Column="0" BorderBrush="#aaa" BorderThickness="1,0">
-                                <Label Content="{TemplateBinding Content}" FontSize="20" FontStyle="Normal" FontFamily="Verdana" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Border Background="{TemplateBinding Background}" Opacity="0.5" Grid.Column="0" BorderBrush="#857F72" BorderThickness="1,0">
+                                <Label Content="{TemplateBinding Content}" FontSize="24" FontStyle="Normal" FontFamily="Verdana" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}"/>
                             </Border>
                         </Grid>
                     </ControlTemplate>
@@ -27,14 +28,14 @@
             </Setter>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#aaa" />
+                    <Setter Property="Background" Value="#504A40" />
                     <Setter Property="Cursor" Value="Hand"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
     </Window.Resources>
 
-    <Grid>
+    <Grid Background="#121212">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
