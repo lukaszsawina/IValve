@@ -146,7 +146,7 @@
                    Grid.Row="3"/>
             <TextBlock Grid.Column="1" 
                        Grid.Row="3"
-                       Text="{Binding SelectedPerson.BirthDate}"/>
+                       Text="{Binding SelectedPerson.BirthDate, StringFormat={}{0:dd.MM.yyyy}}"/>
             <Label Content="Role: " 
                    Grid.Column="0"
                    Grid.Row="4"/>
@@ -171,6 +171,7 @@
         <Button Grid.Column="0"
                 Grid.Row="1"
                 Content="Add new"
+                Command="{s:Action ShowAWindow}"
                 />
         <Button Grid.Column="1"
                 Grid.Row="1"

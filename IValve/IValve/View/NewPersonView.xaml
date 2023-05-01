@@ -1,0 +1,116 @@
+﻿<Window x:Class="IValve.View.NewPersonView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IValve.View"
+        xmlns:s="https://github.com/canton7/Stylet"
+        mc:Ignorable="d"
+        Title="NewPersonView" Height="600" Width="800">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="#424242" ></Setter>
+            <Setter Property="Foreground" Value="#FAF9F7"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Background="{TemplateBinding Background}" Opacity="0.5" Grid.Column="0" BorderBrush="#857F72" BorderThickness="1,0">
+                                <Label Content="{TemplateBinding Content}" FontSize="24" FontStyle="Normal" FontFamily="Verdana" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#504A40" />
+                    <Setter Property="Cursor" Value="Hand"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="#B8B2A7"/>
+            <Setter Property="FontSize" Value="32"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Background" Value="#504A40"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="FontSize" Value="26"/>
+            <Setter Property="Margin" Value="0,0,40,0"/>
+            <Setter Property="Foreground" Value="#FAF9F7"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background" Value="#424242"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="#FAF9F7"/>
+        </Style>
+        <Style TargetType="DatePickerTextBox">
+            <Setter Property="Background" Value="#504A40"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="FontSize" Value="26"/>
+            <Setter Property="Text" Value="Select a date"/>
+            <Style.Triggers>
+                <Trigger Property="IsFocused" Value="True">
+                    <Setter Property="Background" Value="#424242"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Background" Value="#504A40"/>
+        </Style>
+
+
+    </Window.Resources>
+    <Grid Background="#121212">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.ColumnSpan="2" Text="New Person" 
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="56"
+                   Foreground="#FAF9F7"
+                   FontWeight="Medium"/>
+        <StackPanel Grid.Row="1">
+            <Label Content="Name" 
+               />
+            <TextBox x:Name="newFirstName"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1"
+                    Grid.Column="1">
+            <Label Content="LastName" 
+               />
+            <TextBox x:Name="newLastName"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2"
+                    Grid.ColumnSpan="2">
+            <Label Content="Birthday" 
+               />
+            <DatePicker x:Name="newBirthDate"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3"
+                    Grid.Column="0">
+            <Label Content="Role" 
+               />
+            <ComboBox x:Name="newRole" Background="#504A40"/>
+        </StackPanel>
+    </Grid>
+</Window>

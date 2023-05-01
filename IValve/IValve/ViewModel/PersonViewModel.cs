@@ -14,6 +14,7 @@ namespace IValve.ViewModel
     public class PersonViewModel : Screen
     {
         private readonly IDataAccess? _data;
+        private readonly IWindowManager _window;
         private IEnumerable<PersonModel> _personsList;
         private FullPersonModel _selected;
 
@@ -45,9 +46,10 @@ namespace IValve.ViewModel
         }
 
         [Inject]
-        public PersonViewModel(IDataAccess data)
+        public PersonViewModel(IDataAccess data, IWindowManager window)
         {
             _data = data;
+            _window = window;
             Task.Run(() => this.LoadPersonsAsync()).Wait();
         }
         public async Task LoadPersonsAsync()
@@ -61,6 +63,13 @@ namespace IValve.ViewModel
             var selected = (PersonModel)e.AddedCells[0].Item;
             var values = new { ID = selected.Person_ID};
             Task.Run(() => SelectedPerson = _data.LoadDataSP<FullPersonModel, dynamic>("sp_GetFullPerson", values).Result.First());
+        }
+
+        public void ShowAWindow()
+        {
+            var viewModel = new NewPersonViewModel();
+            
+            _window.ShowWindow(viewModel);
         }
     }
 }

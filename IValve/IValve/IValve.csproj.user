@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="View\NewPersonView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\PersonView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -16,11 +19,11 @@
     <Compile Update="View\Test2View.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="View\TestView.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="View\NewPersonView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\PersonView.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -28,9 +31,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\Test2View.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="View\TestView.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
