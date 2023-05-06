@@ -1,4 +1,5 @@
 ﻿using DataAccessLibrary.DbAccess;
+using IValve.Events;
 using IValve.Models;
 using Stylet;
 using StyletIoC;
@@ -11,11 +12,13 @@ using System.Windows.Controls;
 
 namespace IValve.ViewModel
 {
-    public class PersonViewModel : Screen
+    public class PersonViewModel : Screen, IHandle<NewPersonEvent>
     {
         private readonly IDataAccess? _data;
         private readonly IWindowManager _window;
-        private IEnumerable<PersonModel> _personsList;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly NewPersonViewModel _newPersonView;
+        private BindableCollection<PersonModel> _personsList;
         private FullPersonModel _selected;
 
         public FullPersonModel SelectedPerson
@@ -32,7 +35,7 @@ namespace IValve.ViewModel
         }
 
 
-        public IEnumerable<PersonModel> PersonsList
+        public BindableCollection<PersonModel> PersonsList
         {
             get { return _personsList; }
             set
@@ -46,16 +49,21 @@ namespace IValve.ViewModel
         }
 
         [Inject]
-        public PersonViewModel(IDataAccess data, IWindowManager window)
+        public PersonViewModel(IDataAccess data, IWindowManager window, IEventAggregator eventAggregator, NewPersonViewModel newPersonView)
         {
             _data = data;
             _window = window;
+            _eventAggregator = eventAggregator;
+            _eventAggregator.Subscribe(this);
+            _newPersonView = newPersonView;
             Task.Run(() => this.LoadPersonsAsync()).Wait();
         }
         public async Task LoadPersonsAsync()
         {
             string sql_query = "SELECT * FROM person";
-            PersonsList = await _data.LoadDataSQL<PersonModel>(sql_query);
+            var result = await _data.LoadDataSQL<PersonModel>(sql_query);
+            PersonsList = new BindableCollection<PersonModel>(result);
+
         }
 
         public void ChangeSelectedPerson(object sender, SelectedCellsChangedEventArgs  e) 
@@ -67,9 +75,12 @@ namespace IValve.ViewModel
 
         public void ShowAWindow()
         {
-            var viewModel = new NewPersonViewModel();
-            
-            _window.ShowWindow(viewModel);
+            _window.ShowWindow(_newPersonView);
+        }
+
+        public void Handle(NewPersonEvent message)
+        {
+            PersonsList.Add(message.NewPerson);
         }
     }
 }

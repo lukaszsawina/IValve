@@ -30,9 +30,13 @@ namespace DataAccessLibrary.DbAccess
             }
         }
 
-        public Task<IEnumerable<T>> SaveDataSP<T, U>(string storedProcedure, U parameters, string connectionName = "Default")
+        public async Task<int> SaveDataSP(string storedProcedure, DynamicParameters parameters, string connectionName = "Default")
         {
-            throw new NotImplementedException();
+            using (IDbConnection connection = new MySqlConnection(Helper.Connection(connectionName)))
+            {
+                await connection.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+                return parameters.Get<int>("new_id");
+            }
         }
     }
 }
