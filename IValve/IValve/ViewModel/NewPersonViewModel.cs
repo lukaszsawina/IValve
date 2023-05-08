@@ -2,6 +2,7 @@
 using DataAccessLibrary.DbAccess;
 using IValve.Events;
 using IValve.Models;
+using IValve.Validation;
 using Stylet;
 using StyletIoC;
 using System;
@@ -17,6 +18,7 @@ namespace IValve.ViewModel
     {
         private readonly IDataAccess _data;
         private readonly IEventAggregator _eventAggregator;
+        private readonly IWindowManager _windowManager;
 
         public IEnumerable<RoleModel> Roles { get; set; }
         public IEnumerable<StatusModel> Statuses { get; set; }
@@ -105,10 +107,11 @@ namespace IValve.ViewModel
         }
 
         [Inject]
-        public NewPersonViewModel(IDataAccess data, IEventAggregator eventAggregator)
+        public NewPersonViewModel(IDataAccess data, IEventAggregator eventAggregator, IWindowManager windowManager)
         {
             _data = data;
             _eventAggregator = eventAggregator;
+            _windowManager = windowManager;
             Task.Run(() => InitializeData()).Wait();
         }
 
@@ -124,17 +127,45 @@ namespace IValve.ViewModel
 
         public async Task Add()
         {
-            var parameters = new DynamicParameters();
-            parameters.Add("FirstName", FirstName);
-            parameters.Add("LastName", LastName);
-            parameters.Add("BirthDate", Birth);
-            parameters.Add("Role", Role.Role_ID);
-            parameters.Add("Status", Status.Status_ID);
-            parameters.Add("Room", Room.Room_ID);
-            parameters.Add("new_id", DbType.Int32, direction: ParameterDirection.Output);
-            int newID = await _data.SaveDataSP("sp_NewPerson", parameters);
-            _eventAggregator.Publish(new NewPersonEvent(new PersonModel() { Person_ID = newID, Firstname = FirstName, Lastname = LastName, BirthDate = Birth, Role = Role.Role_ID, Status = Status.Status_ID, Room = Room.Room_ID}));
-            Clear();
+
+            if (Role is null || Status is null || Room is null)
+                _windowManager.ShowMessageBox("You have to select all options!");
+            else
+            {
+                var newPerson = new PersonModel() { Firstname = FirstName, Lastname = LastName, BirthDate = Birth, Role = Role.Role_ID ?? 1, Status = Status.Status_ID ?? 1, Room = Room.Room_ID ?? 1 };
+                var validator = new PersonValidator();
+                var result = validator.Validate(newPerson);
+
+                if (result.IsValid)
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("FirstName", FirstName);
+                    parameters.Add("LastName", LastName);
+                    parameters.Add("BirthDate", Birth);
+                    parameters.Add("Role", Role.Role_ID);
+                    parameters.Add("Status", Status.Status_ID);
+                    parameters.Add("Room", Room.Room_ID);
+                    parameters.Add("new_id", DbType.Int32, direction: ParameterDirection.Output);
+                    int newID = await _data.SaveDataSP("sp_NewPerson", parameters);
+                    newPerson.Person_ID = newID;
+
+                    try
+                    {
+                        _eventAggregator.Publish(new NewPersonEvent(newPerson));
+                        Clear();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        _windowManager.ShowMessageBox("Error occured why saving data");
+                    }
+                }
+                else
+                {
+                    _windowManager.ShowMessageBox("Your data are incorrect!");
+                }
+            }
+            
         }
 
         public void Clear()

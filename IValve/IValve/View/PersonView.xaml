@@ -164,7 +164,7 @@
                    Grid.Row="6"/>
             <TextBlock Grid.Column="1" 
                        Grid.Row="6"
-                       Text="{Binding SelectedPerson.Rool}"/>
+                       Text="{Binding SelectedPerson.Room}"/>
 
         </Grid>
 

@@ -8,7 +8,7 @@ namespace IValve.Models
 {
     public class StatusModel
     {
-        public int Status_ID { get; set; }
-        public string Name { get; set; }
+        public int? Status_ID { get; set; }
+        public string? Name { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace IValve.Models
 {
     public class RoleModel
     {
-        public int Role_ID { get; set; }
-        public string Name { get; set; }
+        public int? Role_ID { get; set; }
+        public string? Name { get; set; }
     }
 }
