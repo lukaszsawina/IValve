@@ -213,25 +213,25 @@
         <StackPanel Grid.Row="1">
             <Label Content="Name" 
                />
-            <TextBox Text="{Binding FirstName, Mode=TwoWay}"/>
+            <TextBox Text="{Binding NewPerson.Firstname, Mode=TwoWay}"/>
         </StackPanel>
         <StackPanel Grid.Row="1"
                     Grid.Column="1">
             <Label Content="LastName" 
                />
-            <TextBox Text="{Binding LastName, Mode=TwoWay}"/>
+            <TextBox Text="{Binding NewPerson.Lastname, Mode=TwoWay}"/>
         </StackPanel>
         <StackPanel Grid.Row="2"
                     Grid.ColumnSpan="2">
             <Label Content="Birthday" 
                />
-            <DatePicker Text="{Binding Birth, Mode=TwoWay}"/>
+            <DatePicker Text="{Binding NewPerson.BirthDate, Mode=TwoWay}"/>
         </StackPanel>
         <StackPanel Grid.Row="3"
                     Grid.Column="0">
             <Label Content="Role" 
                />
-            <ComboBox  ItemsSource="{Binding Roles}" SelectedItem="{Binding Role, Mode=TwoWay}">
+            <ComboBox  ItemsSource="{Binding Roles}" SelectedItem="{Binding NewPerson.Role, Mode=TwoWay}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"  />
@@ -243,7 +243,7 @@
                     Grid.Column="1">
             <Label Content="Status" 
                />
-            <ComboBox  ItemsSource="{Binding Statuses}" SelectedItem="{Binding Status, Mode=TwoWay}">
+            <ComboBox  ItemsSource="{Binding Statuses}" SelectedItem="{Binding NewPerson.Status, Mode=TwoWay}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"  />
@@ -255,7 +255,7 @@
                     Grid.Column="0">
             <Label Content="Room" 
                />
-            <ComboBox  ItemsSource="{Binding Rooms}" SelectedItem="{Binding Room, Mode=TwoWay}">
+            <ComboBox  ItemsSource="{Binding Rooms}" SelectedItem="{Binding NewPerson.Room, Mode=TwoWay}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Room_ID}"  />
@@ -265,6 +265,7 @@
         </StackPanel>
         <StackPanel Grid.Row="4"
                     Grid.Column="1" VerticalAlignment="Center">
+            <TextBlock Text="{Binding ErrorMessage}" Foreground="#f00" FontSize="14" IsEnabled="False"/>
             <Button Content="Add" Command="{s:Action Add}"/>
             <Button Content="Clear/Close" Command="{s:Action Clear}"/>
         </StackPanel>

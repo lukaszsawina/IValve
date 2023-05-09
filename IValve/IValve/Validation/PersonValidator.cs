@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using IValve.Models;
+﻿using DataAccessLibrary.Models;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +12,9 @@ namespace IValve.Validation
     {
         public PersonValidator()
         {
-            RuleFor(x => x.Firstname).NotEmpty().Length(3, 50);
-            RuleFor(x => x.Lastname).NotEmpty().Length(3, 50);
-            RuleFor(x => x.BirthDate).NotEmpty().LessThan(DateTime.Now);
+            RuleFor(x => x.Firstname).NotEmpty().Length(3, 50).WithMessage("First name is empty");
+            RuleFor(x => x.Lastname).NotEmpty().Length(3, 50).WithMessage("Last name is empty");
+            RuleFor(x => x.BirthDate).NotEmpty().LessThan(DateTime.Now).WithMessage("Date is in future");
         }
     }
 }

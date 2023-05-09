@@ -1,6 +1,6 @@
 ﻿using DataAccessLibrary.DbAccess;
+using DataAccessLibrary.Models;
 using IValve.Events;
-using IValve.Models;
 using Stylet;
 using StyletIoC;
 using System;
@@ -18,10 +18,11 @@ namespace IValve.ViewModel
         private readonly IWindowManager _window;
         private readonly IEventAggregator _eventAggregator;
         private readonly NewPersonViewModel _newPersonView;
+        private readonly EditPersonViewModel _editPersonView;
         private BindableCollection<PersonModel> _personsList;
-        private FullPersonModel _selected;
+        private PersonModel _selected;
 
-        public FullPersonModel SelectedPerson
+        public PersonModel SelectedPerson
         {
             get { return _selected; }
             set 
@@ -33,8 +34,6 @@ namespace IValve.ViewModel
                 }
             }
         }
-
-
         public BindableCollection<PersonModel> PersonsList
         {
             get { return _personsList; }
@@ -49,33 +48,39 @@ namespace IValve.ViewModel
         }
 
         [Inject]
-        public PersonViewModel(IDataAccess data, IWindowManager window, IEventAggregator eventAggregator, NewPersonViewModel newPersonView)
+        public PersonViewModel(IDataAccess data, IWindowManager window, IEventAggregator eventAggregator, NewPersonViewModel newPersonView, EditPersonViewModel editPersonView)
         {
             _data = data;
             _window = window;
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
             _newPersonView = newPersonView;
+            _editPersonView = editPersonView;
             Task.Run(() => this.LoadPersonsAsync()).Wait();
         }
         public async Task LoadPersonsAsync()
         {
-            string sql_query = "SELECT * FROM person";
-            var result = await _data.LoadDataSQL<PersonModel>(sql_query);
+            var result = await _data.LoadPersonsAsync();
             PersonsList = new BindableCollection<PersonModel>(result);
-
         }
 
         public void ChangeSelectedPerson(object sender, SelectedCellsChangedEventArgs  e) 
         {
-            var selected = (PersonModel)e.AddedCells[0].Item;
-            var values = new { ID = selected.Person_ID};
-            Task.Run(() => SelectedPerson = _data.LoadDataSP<FullPersonModel, dynamic>("sp_GetFullPerson", values).Result.First());
+            SelectedPerson = (PersonModel)e.AddedCells[0].Item;
         }
 
-        public void ShowAWindow()
+        public void ShowNewPersonWindow()
         {
             _window.ShowWindow(_newPersonView);
+        }
+
+        public void ShowEditPersonWindow()
+        {
+            if(SelectedPerson != null)
+            {
+                _window.ShowWindow(_editPersonView);
+                _editPersonView.SetPerson( PersonsList.Where(x => x.Person_ID == SelectedPerson.Person_ID).First());
+            }
         }
 
         public void Handle(NewPersonEvent message)

@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using DataAccessLibrary.DbAccess;
+using DataAccessLibrary.Models;
 using IValve.Events;
-using IValve.Models;
 using IValve.Validation;
 using Stylet;
 using StyletIoC;
@@ -18,57 +18,45 @@ namespace IValve.ViewModel
     {
         private readonly IDataAccess _data;
         private readonly IEventAggregator _eventAggregator;
-        private readonly IWindowManager _windowManager;
 
         public IEnumerable<RoleModel> Roles { get; set; }
         public IEnumerable<StatusModel> Statuses { get; set; }
         public IEnumerable<RoomModel> Rooms { get; set; }
 
-        private string _firstName = "";
-        private string _lastName = "";
-        private DateTime _birth = DateTime.Now;
+        private PersonModel _newPerson = new PersonModel();
+
+        public PersonModel NewPerson
+        {
+            get { return _newPerson; }
+            set 
+            {
+                if (_newPerson != value)
+                {
+                    _newPerson = value;
+                    NotifyOfPropertyChange(nameof(NewPerson));
+                }
+            }
+        }
+
+
         private RoleModel? _role;
         private StatusModel? _status;
         private RoomModel? _room;
+        private string _errorMessage = "";
 
-        public string FirstName
+        public string ErrorMessage
         {
-            get { return _firstName; }
+            get { return _errorMessage; }
             set 
-            { 
-                if(_firstName != value)
-                {
-                    _firstName = value;
-                    NotifyOfPropertyChange(nameof(FirstName));
-                }
-            
-            }
-        }
-        public string LastName
-        {
-            get { return _lastName; }
-            set
             {
-                if (_lastName != value)
+                if (_errorMessage != value)
                 {
-                    _lastName = value;
-                    NotifyOfPropertyChange(nameof(LastName));
+                    _errorMessage = value;
+                    NotifyOfPropertyChange(nameof(ErrorMessage));
                 }
+            }
+        }
 
-            }
-        }
-        public DateTime Birth
-        {
-            get { return _birth; }
-            set 
-            { 
-                if(_birth != value)
-                {
-                    _birth = value;
-                    NotifyOfPropertyChange(nameof(Birth));
-                }
-            }
-        }
         public RoleModel? Role
         {
             get { return _role; }
@@ -107,18 +95,17 @@ namespace IValve.ViewModel
         }
 
         [Inject]
-        public NewPersonViewModel(IDataAccess data, IEventAggregator eventAggregator, IWindowManager windowManager)
+        public NewPersonViewModel(IDataAccess data, IEventAggregator eventAggregator)
         {
             _data = data;
             _eventAggregator = eventAggregator;
-            _windowManager = windowManager;
             Task.Run(() => InitializeData()).Wait();
         }
 
         private async Task InitializeData()
         {
             string SQL = "SELECT * FROM Roles";
-            Roles = await  _data.LoadDataSQL<RoleModel>(SQL);
+            Roles = await _data.LoadDataSQL<RoleModel>(SQL);
             SQL = "SELECT * FROM Status";
             Statuses = await _data.LoadDataSQL<StatusModel>(SQL);
             SQL = "SELECT * FROM Rooms";
@@ -128,41 +115,43 @@ namespace IValve.ViewModel
         public async Task Add()
         {
 
-            if (Role is null || Status is null || Room is null)
-                _windowManager.ShowMessageBox("You have to select all options!");
+            if (NewPerson.Role is null || NewPerson.Status is null || NewPerson.Room is null)
+                ErrorMessage = "You have to select all options!";
             else
             {
-                var newPerson = new PersonModel() { Firstname = FirstName, Lastname = LastName, BirthDate = Birth, Role = Role.Role_ID ?? 1, Status = Status.Status_ID ?? 1, Room = Room.Room_ID ?? 1 };
+
                 var validator = new PersonValidator();
-                var result = validator.Validate(newPerson);
+                var result = validator.Validate(NewPerson);
 
                 if (result.IsValid)
                 {
                     var parameters = new DynamicParameters();
-                    parameters.Add("FirstName", FirstName);
-                    parameters.Add("LastName", LastName);
-                    parameters.Add("BirthDate", Birth);
-                    parameters.Add("Role", Role.Role_ID);
-                    parameters.Add("Status", Status.Status_ID);
-                    parameters.Add("Room", Room.Room_ID);
+                    parameters.Add("FirstName", NewPerson.Firstname);
+                    parameters.Add("LastName", NewPerson.Lastname);
+                    parameters.Add("BirthDate", NewPerson.BirthDate);
+                    parameters.Add("Role", NewPerson.Role.Role_ID);
+                    parameters.Add("Status", NewPerson.Status.Status_ID);
+                    parameters.Add("Room", NewPerson.Room.Room_ID);
                     parameters.Add("new_id", DbType.Int32, direction: ParameterDirection.Output);
-                    int newID = await _data.SaveDataSP("sp_NewPerson", parameters);
-                    newPerson.Person_ID = newID;
 
                     try
                     {
-                        _eventAggregator.Publish(new NewPersonEvent(newPerson));
+                        int newID = await _data.SaveDataSP("sp_NewPerson", parameters);
+                        NewPerson.Person_ID = newID;
+                        _eventAggregator.Publish(new NewPersonEvent(NewPerson));
                         Clear();
+                        ErrorMessage = "";
 
                     }
                     catch (Exception ex)
                     {
-                        _windowManager.ShowMessageBox("Error occured why saving data");
+                        ErrorMessage = "Error while saving data";
                     }
                 }
                 else
                 {
-                    _windowManager.ShowMessageBox("Your data are incorrect!");
+
+                    ErrorMessage = result.Errors.Last().ErrorMessage;
                 }
             }
             
@@ -170,15 +159,9 @@ namespace IValve.ViewModel
 
         public void Clear()
         {
-            if (FirstName == "" && LastName == "" && Birth.Date == DateTime.Now.Date && Role is null && Status is null && Room is null)
+            if (NewPerson.Firstname is null && NewPerson.Lastname is null && NewPerson.BirthDate == DateTime.MinValue && NewPerson.Role is null && NewPerson.Status is null && NewPerson.Room is null)
                 Close();
-
-            FirstName = "";
-            LastName = "";
-            Birth = DateTime.Now;
-            Role = null;
-            Status = null;
-            Room = null;
+            NewPerson = new PersonModel();
         }
         public void Close()
         {

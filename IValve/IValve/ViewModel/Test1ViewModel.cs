@@ -1,5 +1,4 @@
 ﻿using DataAccessLibrary.DbAccess;
-using IValve.Models;
 using Stylet;
 using StyletIoC;
 using System;
