@@ -12,7 +12,7 @@ using System.Windows.Controls;
 
 namespace IValve.ViewModel
 {
-    public class PersonViewModel : Screen, IHandle<NewPersonEvent>
+    public class PersonViewModel : Screen, IHandle<NewPersonEvent>, IHandle<EditPersonEvent>
     {
         private readonly IDataAccess? _data;
         private readonly IWindowManager _window;
@@ -86,6 +86,22 @@ namespace IValve.ViewModel
         public void Handle(NewPersonEvent message)
         {
             PersonsList.Add(message.NewPerson);
+        }
+
+        public void Handle(EditPersonEvent message)
+        {
+            var obj = PersonsList.FirstOrDefault(x => x.Person_ID == message.NewPerson.Person_ID);
+            if (obj != null)
+            {
+                obj.Firstname = message.NewPerson.Firstname;
+                obj.Lastname = message.NewPerson.Lastname;
+                obj.BirthDate = message.NewPerson.BirthDate;
+                obj.Role = message.NewPerson.Role;
+                obj.Status = message.NewPerson.Status;
+                obj.Room = message.NewPerson.Room;
+            }
+            SelectedPerson = message.NewPerson;
+            PersonsList.Refresh();
         }
     }
 }

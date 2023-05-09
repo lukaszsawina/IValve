@@ -102,7 +102,7 @@
                 <DataGridTextColumn Header="ID" Width="*" Binding="{Binding Person_ID}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Firstname" Width="3*" Binding="{Binding Firstname}"></DataGridTextColumn>
                 <DataGridTextColumn Header="LastName" Width="3*" Binding="{Binding Lastname}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Role" Width="3*" Binding="{Binding Role.Role_ID}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Role" Width="3*" Binding="{Binding Role.Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Room" Width="3*" Binding="{Binding Room.Room_ID}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
@@ -152,13 +152,13 @@
                    Grid.Row="4"/>
             <TextBlock Grid.Column="1" 
                        Grid.Row="4"
-                       Text="{Binding SelectedPerson.Role.Role_ID}"/>
+                       Text="{Binding SelectedPerson.Role.Name}"/>
             <Label Content="Status: " 
                    Grid.Column="0"
                    Grid.Row="5"/>
             <TextBlock Grid.Column="1" 
                        Grid.Row="5"
-                       Text="{Binding SelectedPerson.Status.Status_ID}"/>
+                       Text="{Binding SelectedPerson.Status.Name}"/>
             <Label Content="Room: " 
                    Grid.Column="0"
                    Grid.Row="6"/>

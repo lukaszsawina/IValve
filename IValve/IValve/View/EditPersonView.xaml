@@ -243,7 +243,7 @@
                     Grid.Column="1">
             <Label Content="Status" 
                />
-            <ComboBox  ItemsSource="{Binding Statuses}" SelectedItem="{Binding PersonToEdit.Status, Mode=TwoWay}" SelectedIndex="{Binding SelectedStatus}">
+            <ComboBox  ItemsSource="{Binding Statuses}" SelectedItem="{Binding Path=PersonToEdit.Status, Mode=TwoWay}" SelectedIndex="{Binding SelectedStatus}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}"  />
@@ -266,7 +266,7 @@
         <StackPanel Grid.Row="4"
                     Grid.Column="1" VerticalAlignment="Center">
             <TextBlock Text="{Binding ErrorMessage}" Foreground="#f00" FontSize="14" IsEnabled="False"/>
-            <Button Content="Add" Command="{s:Action Add}"/>
+            <Button Content="Save" Command="{s:Action Save}"/>
             <Button Content="Close" Command="{s:Action Close}"/>
         </StackPanel>
     </Grid>

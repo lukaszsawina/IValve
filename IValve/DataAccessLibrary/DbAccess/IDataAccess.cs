@@ -9,5 +9,6 @@ namespace DataAccessLibrary.DbAccess
         Task<IEnumerable<PersonModel>> LoadPersonsAsync(string connectionName = "Default");
         Task<IEnumerable<T>> LoadDataSQL<T>(string query, string connectionName = "Default");
         Task<int> SaveDataSP(string storedProcedure, DynamicParameters parameters, string connectionName = "Default");
+        Task UpdateDataSP(string storedProcedure, DynamicParameters parameters, string connectionName = "Default");
     }
 }

@@ -55,5 +55,13 @@ namespace DataAccessLibrary.DbAccess
                 return parameters.Get<int>("new_id");
             }
         }
+        public async Task UpdateDataSP(string storedProcedure, DynamicParameters parameters, string connectionName = "Default")
+        {
+            using (IDbConnection connection = new MySqlConnection(Helper.Connection(connectionName)))
+            {
+                await connection.ExecuteAsync(storedProcedure, parameters, commandType: CommandType.StoredProcedure);
+            }
+        }
+
     }
 }

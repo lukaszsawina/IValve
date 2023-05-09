@@ -153,54 +153,60 @@ namespace IValve.ViewModel
         }
         public void SetPerson(PersonModel person)
         {
-            PersonToEdit = person;
+            PersonToEdit = new PersonModel()
+            {
+                Person_ID = person.Person_ID,
+                Firstname = person.Firstname,
+                Lastname = person.Lastname,
+                BirthDate = person.BirthDate,
+                Role = person.Role,
+                Status = person.Status,
+                Room = person.Room
+            };
             SelectedRole = Roles.ToList().FindIndex(x=>x.Role_ID == person.Role.Role_ID);
             SelectedStatus = Statuses.ToList().FindIndex(x=>x.Status_ID == person.Status.Status_ID);
-            SelectedStatus = Rooms.ToList().FindIndex(x=>x.Room_ID == person.Room.Room_ID);
+            SelectedRoom = Rooms.ToList().FindIndex(x=>x.Room_ID == person.Room.Room_ID);
         }
 
-        public async Task Add()
+        public async Task Save()
         {
+            if (PersonToEdit.Role is null || PersonToEdit.Status is null || PersonToEdit.Room is null)
+                ErrorMessage = "You have to select all options!";
+            else
+            {
 
-            //if (Role is null || Status is null || Room is null)
-            //    _windowManager.ShowMessageBox("You have to select all options!");
-            //else
-            //{
-            //    var newPerson = new PersonModel() { Firstname = FirstName, Lastname = LastName, BirthDate = Birth, Role = Role.Role_ID ?? 1, Status = Status.Status_ID ?? 1, Room = Room.Room_ID ?? 1 };
-            //    var validator = new PersonValidator();
-            //    var result = validator.Validate(newPerson);
+                var validator = new PersonValidator();
+                var result = validator.Validate(PersonToEdit);
 
-            //    if (result.IsValid)
-            //    {
-            //        var parameters = new DynamicParameters();
-            //        parameters.Add("FirstName", FirstName);
-            //        parameters.Add("LastName", LastName);
-            //        parameters.Add("BirthDate", Birth);
-            //        parameters.Add("Role", Role.Role_ID);
-            //        parameters.Add("Status", Status.Status_ID);
-            //        parameters.Add("Room", Room.Room_ID);
-            //        parameters.Add("new_id", DbType.Int32, direction: ParameterDirection.Output);
+                if (result.IsValid)
+                {
+                    var parameters = new DynamicParameters();
+                    parameters.Add("FirstName", PersonToEdit.Firstname);
+                    parameters.Add("LastName", PersonToEdit.Lastname);
+                    parameters.Add("BirthDate", PersonToEdit.BirthDate);
+                    parameters.Add("Role", PersonToEdit.Role.Role_ID);
+                    parameters.Add("Status", PersonToEdit.Status.Status_ID);
+                    parameters.Add("Room", PersonToEdit.Room.Room_ID);
+                    parameters.Add("ID", PersonToEdit.Person_ID);
 
-            //        try
-            //        {
-            //            int newID = await _data.SaveDataSP("sp_NewPerson", parameters);
-            //            newPerson.Person_ID = newID;
-            //            _eventAggregator.Publish(new NewPersonEvent(newPerson));
-            //            Clear();
-            //            ErrorMessage = "";
+                    try
+                    {
+                        await _data.UpdateDataSP("sp_EditPerson", parameters);
+                        _eventAggregator.Publish(new EditPersonEvent(PersonToEdit));
+                        Close();
 
-            //        }
-            //        catch (Exception ex)
-            //        {
-            //            ErrorMessage = "Error while saving data";
-            //        }
-            //    }
-            //    else
-            //    {
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorMessage = "Error while saving data";
+                    }
+                }
+                else
+                {
 
-            //        ErrorMessage = result.Errors.Last().ErrorMessage;
-            //    }
-            //}
+                    ErrorMessage = result.Errors.Last().ErrorMessage;
+                }
+            }
 
         }
         public void Close()
