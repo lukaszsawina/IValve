@@ -1,4 +1,5 @@
-﻿using DataAccessLibrary.DbAccess;
+﻿using Dapper;
+using DataAccessLibrary.DbAccess;
 using DataAccessLibrary.Models;
 using IValve.Events;
 using Stylet;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace IValve.ViewModel
@@ -66,7 +68,10 @@ namespace IValve.ViewModel
 
         public void ChangeSelectedPerson(object sender, SelectedCellsChangedEventArgs  e) 
         {
-            SelectedPerson = (PersonModel)e.AddedCells[0].Item;
+            if (e.AddedCells.Count != 0)
+                SelectedPerson = (PersonModel)e.AddedCells[0].Item;
+            else
+                SelectedPerson = null;
         }
 
         public void ShowNewPersonWindow()
@@ -102,6 +107,28 @@ namespace IValve.ViewModel
             }
             SelectedPerson = message.NewPerson;
             PersonsList.Refresh();
+        }
+
+        public async Task Delete()
+        {
+            if(SelectedPerson != null)
+            {
+                MessageBoxResult result = _window.ShowMessageBox(
+                    "Are you sure?",
+                    "Confirm",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    int id = SelectedPerson.Person_ID;
+                    SelectedPerson = null;
+                    var parameters = new DynamicParameters();
+                    parameters.Add("ID", id);
+                    await _data.UpdateDataSP("sp_DeletePerson", parameters);
+                    PersonsList.Remove(PersonsList.Where(x => x.Person_ID == id).First());
+                }
+            }
         }
     }
 }

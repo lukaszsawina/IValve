@@ -179,6 +179,7 @@
                 Command="{s:Action ShowEditPersonWindow}"/>
         <Button Grid.Column="2"
                 Grid.Row="1"
-                Content="Delete"/>
+                Content="Delete"
+                Command="{s:Action Delete}"/>
     </Grid>
 </UserControl>
