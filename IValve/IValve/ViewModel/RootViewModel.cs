@@ -12,12 +12,11 @@ namespace IValve.ViewModel
     public class RootViewModel : Conductor<IScreen>.StackNavigation
     {
         public PersonViewModel PersonView { get; private set; }
-        public Test2ViewModel Test2 { get; private set; }
-        public RootViewModel(PersonViewModel person, Test2ViewModel test2)
+        public RoomViewModel RoomView { get; private set; }
+        public RootViewModel(PersonViewModel person, RoomViewModel room)
         {
             PersonView = person;
-            Test2 = test2;
-            this.ActivateItem(PersonView);
+            RoomView = room;
         }
         public void OpenPerson()
         {
@@ -25,7 +24,7 @@ namespace IValve.ViewModel
         }
         public void OpenRooms()
         {
-            this.ActivateItem(Test2);
+            this.ActivateItem(RoomView);
         }
         public void Close()
         {

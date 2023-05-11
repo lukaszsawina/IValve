@@ -62,8 +62,7 @@ namespace IValve.ViewModel
         }
         public async Task LoadPersonsAsync()
         {
-            var result = await _data.LoadPersonsAsync();
-            PersonsList = new BindableCollection<PersonModel>(result);
+            PersonsList = new BindableCollection<PersonModel>(await _data.LoadPersonsAsync());
         }
 
         public void ChangeSelectedPerson(object sender, SelectedCellsChangedEventArgs  e) 

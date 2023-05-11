@@ -33,6 +33,66 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style TargetType="{x:Type DataGrid}">
+            <Setter Property="Background" Value="#27241D" />
+            <Setter Property="Foreground" Value="#FAF9F7" />
+            <Setter Property="AlternatingRowBackground" Value="#423D33" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="DataGridColumnHeader">
+                        <Border Background="#423D33" BorderBrush="Black" BorderThickness="0">
+                            <TextBlock Text="{TemplateBinding Content}" Padding="0,5" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="SortDirection" Value="Ascending">
+                    <Setter Property="FontWeight" Value="Medium" />
+                </Trigger>
+                <Trigger Property="SortDirection" Value="Descending">
+                    <Setter Property="FontWeight" Value="Medium" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="DataGridRow">
+            <Setter Property="Background" Value="#423D33" />
+            <Setter Property="Foreground" Value="#FAF9F7" />
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#504A40" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="DataGridCell">
+            <Setter Property="Background" Value="#423D33" />
+            <Setter Property="BorderThickness" Value="0,2"/>
+
+            <Style.Triggers>
+
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="#504A40"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style TargetType="Label">
+            <Setter Property="Foreground" Value="#FAF9F7"/>
+            <Setter Property="FontSize" Value="26"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#B8B2A7"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
     </Window.Resources>
 
     <Grid Background="#121212">

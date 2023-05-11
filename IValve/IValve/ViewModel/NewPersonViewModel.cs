@@ -108,8 +108,8 @@ namespace IValve.ViewModel
             Roles = await _data.LoadDataSQL<RoleModel>(SQL);
             SQL = "SELECT * FROM Status";
             Statuses = await _data.LoadDataSQL<StatusModel>(SQL);
-            SQL = "SELECT * FROM Rooms";
-            Rooms = await _data.LoadDataSQL<RoomModel>(SQL);
+            var all_rooms = await _data.LoadRoomsAsync();
+            Rooms = all_rooms.Where(x => x.Occupied < x.Capacity).ToList();
         }
 
         public async Task Add()

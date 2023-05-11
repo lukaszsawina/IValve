@@ -9,7 +9,15 @@ namespace DataAccessLibrary.Models
     public class RoomModel
     {
         public int? Room_ID { get; set; }
-        public int? Section { get; set; }
+        public SectionModel? Section { get; set; }
         public int? Capacity { get; set; }
+        public int Occupied { get; set; }
+        public string FullCapacity 
+        { 
+            get
+            {
+                return $"{Occupied} / {Capacity}";
+            }
+        }
     }
 }

@@ -23,8 +23,6 @@ C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\refint\IValve.dll
 C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\IValve.pdb
 C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\IValve.genruntimeconfig.cache
 C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\ref\IValve.dll
-C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\Test2View.g.cs
-C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\Test2View.baml
 C:\dev\C#\IValveProject\IValve\IValve\bin\Debug\net6.0-windows\Dapper.dll
 C:\dev\C#\IValveProject\IValve\IValve\bin\Debug\net6.0-windows\Google.Protobuf.dll
 C:\dev\C#\IValveProject\IValve\IValve\bin\Debug\net6.0-windows\K4os.Compression.LZ4.dll
@@ -60,3 +58,5 @@ C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\NewPersonVie
 C:\dev\C#\IValveProject\IValve\IValve\bin\Debug\net6.0-windows\FluentValidation.dll
 C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\EditPersonView.g.cs
 C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\EditPersonView.baml
+C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\RoomView.g.cs
+C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\RoomView.baml
