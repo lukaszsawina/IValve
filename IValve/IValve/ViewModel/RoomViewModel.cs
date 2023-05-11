@@ -59,6 +59,52 @@ namespace IValve.ViewModel
             }
         }
 
+
+        private int _countOfRooms;
+
+        public int CountOfRooms
+        {
+            get { return _countOfRooms; }
+            set
+            {
+                if (_countOfRooms != value)
+                {
+                    _countOfRooms = value;
+                    NotifyOfPropertyChange(nameof(CountOfRooms));
+                }
+            }
+        }
+
+        private decimal _percentOfOccupied;
+
+        public decimal PercentOfOccupied
+        {
+            get { return _percentOfOccupied; }
+            set
+            {
+                if (_percentOfOccupied != value)
+                {
+                    _percentOfOccupied = value;
+                    NotifyOfPropertyChange(nameof(PercentOfOccupied));
+                }
+            }
+        }
+
+        private int _countOfAvaliable;
+
+        public int CountOfAvaliable
+        {
+            get { return _countOfAvaliable; }
+            set
+            {
+                if (_countOfAvaliable != value)
+                {
+                    _countOfAvaliable = value;
+                    NotifyOfPropertyChange(nameof(CountOfAvaliable));
+                }
+            }
+        }
+
         public RoomViewModel(IDataAccess data, IEventAggregator eventAggregator)
         {
             _data = data;
@@ -71,7 +117,14 @@ namespace IValve.ViewModel
         {
             Rooms = new BindableCollection<RoomModel>(await _data.LoadRoomsAsync());
             Persons = new List<PersonModel>(await _data.LoadPersonsAsync());
+            CalcSatatistic();
+        }
 
+        private void CalcSatatistic()
+        {
+            CountOfRooms = Rooms.Count;
+            CountOfAvaliable = Rooms.Where(x => x.Capacity > x.Occupied).Count();
+            PercentOfOccupied = (decimal)CountOfAvaliable / (decimal)CountOfRooms *100;
         }
 
         public void ChangeSelectedPerson(object sender, SelectedCellsChangedEventArgs e)
@@ -90,6 +143,13 @@ namespace IValve.ViewModel
             if(PersonInRoom != null)
                 PersonInRoom.Refresh();
             Task.Run(()=> InitialDataAsync()).Wait();
+            CalcSatatistic();
+        }
+
+        public void Handle(NewPersonEvent e)
+        {
+            Task.Run(() => InitialDataAsync()).Wait();
+            CalcSatatistic();
         }
     }
 }

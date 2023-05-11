@@ -18,10 +18,22 @@ namespace IValve.ViewModel
     {
         private readonly IDataAccess _data;
         private readonly IEventAggregator _eventAggregator;
+        private IEnumerable<RoomModel> _rooms;
 
         public IEnumerable<RoleModel> Roles { get; set; }
         public IEnumerable<StatusModel> Statuses { get; set; }
-        public IEnumerable<RoomModel> Rooms { get; set; }
+        public IEnumerable<RoomModel> Rooms 
+        {
+            get { return _rooms; }
+            set
+            {
+                if (_rooms != value)
+                {
+                    _rooms = value;
+                    NotifyOfPropertyChange(nameof(Rooms));
+                }
+            }
+        }
 
         private PersonModel _newPerson = new PersonModel();
 
@@ -108,10 +120,13 @@ namespace IValve.ViewModel
             Roles = await _data.LoadDataSQL<RoleModel>(SQL);
             SQL = "SELECT * FROM Status";
             Statuses = await _data.LoadDataSQL<StatusModel>(SQL);
+            await AddAvaliableRooms();
+        }
+        private async Task AddAvaliableRooms()
+        {
             var all_rooms = await _data.LoadRoomsAsync();
             Rooms = all_rooms.Where(x => x.Occupied < x.Capacity).ToList();
         }
-
         public async Task Add()
         {
 
@@ -141,6 +156,7 @@ namespace IValve.ViewModel
                         _eventAggregator.Publish(new NewPersonEvent(NewPerson));
                         Clear();
                         ErrorMessage = "";
+                        await AddAvaliableRooms();
 
                     }
                     catch (Exception ex)

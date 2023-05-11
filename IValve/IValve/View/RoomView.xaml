@@ -65,19 +65,20 @@
                    Grid.Row="1"/>
             <TextBlock Grid.Row="1"
                        Grid.Column="1"
-                       Text="10"/>
+                       Text="{Binding CountOfRooms}"/>
             <Label Content="Percentage of occupied rooms:" 
                    Grid.Column="0"
                    Grid.Row="2"/>
             <TextBlock Grid.Row="2"
                        Grid.Column="1"
-                       Text="80%"/>
+                       Text="{Binding PercentOfOccupied ,StringFormat={}{0:F1} %}"
+                       />
             <Label Content="Available rooms:"
                    Grid.Column="0"
                    Grid.Row="3"/>
             <TextBlock Grid.Row="3"
                        Grid.Column="1"
-                       Text="1"/>
+                       Text="{Binding CountOfAvaliable}"/>
         </Grid>
 
         <DataGrid Grid.Row="2"

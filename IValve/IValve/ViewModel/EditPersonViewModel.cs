@@ -18,15 +18,27 @@ namespace IValve.ViewModel
     {
         private readonly IDataAccess _data;
         private readonly IEventAggregator _eventAggregator;
-        private readonly IWindowManager _windowManager;
 
         public IEnumerable<RoleModel> Roles { get; set; }
         public IEnumerable<StatusModel> Statuses { get; set; }
-        public IEnumerable<RoomModel> Rooms { get; set; }
-        private PersonModel _editedPerson;
+        private IEnumerable<RoomModel> _rooms;
+        private PersonModel _editedPerson = new PersonModel();
         private int _selectedRole;
         private int _selectedStatus;
         private int _selectedRoom;
+
+        public IEnumerable<RoomModel> Rooms
+        {
+            get { return _rooms; }
+            set
+            {
+                if (_rooms != value)
+                {
+                    _rooms = value;
+                    NotifyOfPropertyChange(nameof(Rooms));
+                }
+            }
+        }
 
         public int SelectedRole
         {
@@ -65,8 +77,6 @@ namespace IValve.ViewModel
             }
         }
 
-
-
         public PersonModel PersonToEdit
         {
             get { return _editedPerson; }
@@ -79,6 +89,7 @@ namespace IValve.ViewModel
                 }
             }
         }
+
 
         private RoleModel? _role;
         private StatusModel? _status;
@@ -134,11 +145,10 @@ namespace IValve.ViewModel
         }
 
         [Inject]
-        public EditPersonViewModel(IDataAccess data, IEventAggregator eventAggregator, IWindowManager windowManager)
+        public EditPersonViewModel(IDataAccess data, IEventAggregator eventAggregator)
         {
             _data = data;
             _eventAggregator = eventAggregator;
-            _windowManager = windowManager;
             Task.Run(() => InitializeData()).Wait();
         }
 
@@ -148,6 +158,10 @@ namespace IValve.ViewModel
             Roles = await _data.LoadDataSQL<RoleModel>(SQL);
             SQL = "SELECT * FROM Status";
             Statuses = await _data.LoadDataSQL<StatusModel>(SQL);
+            await AddAvaliableRooms();
+        }
+        private async Task AddAvaliableRooms()
+        {
             var all_rooms = await _data.LoadRoomsAsync();
             Rooms = all_rooms.Where(x => x.Occupied < x.Capacity).ToList();
         }
@@ -194,6 +208,8 @@ namespace IValve.ViewModel
                         await _data.UpdateDataSP("sp_EditPerson", parameters);
                         _eventAggregator.Publish(new EditPersonEvent(PersonToEdit));
                         Close();
+
+                        AddAvaliableRooms();
 
                     }
                     catch (Exception ex)
