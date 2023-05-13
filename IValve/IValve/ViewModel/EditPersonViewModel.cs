@@ -22,7 +22,7 @@ namespace IValve.ViewModel
         public IEnumerable<RoleModel> Roles { get; set; }
         public IEnumerable<StatusModel> Statuses { get; set; }
         private IEnumerable<RoomModel> _rooms;
-        private PersonModel _editedPerson = new PersonModel();
+        private PersonModel _editedPerson;
         private int _selectedRole;
         private int _selectedStatus;
         private int _selectedRoom;
@@ -158,14 +158,15 @@ namespace IValve.ViewModel
             Roles = await _data.LoadDataSQL<RoleModel>(SQL);
             SQL = "SELECT * FROM Status";
             Statuses = await _data.LoadDataSQL<StatusModel>(SQL);
-            await AddAvaliableRooms();
+            await RefreshAvaliableRooms();
         }
-        private async Task AddAvaliableRooms()
+        private async Task RefreshAvaliableRooms()
         {
             var all_rooms = await _data.LoadRoomsAsync();
-            Rooms = all_rooms.Where(x => x.Occupied < x.Capacity).ToList();
+            if(PersonToEdit != null)
+                Rooms = all_rooms.Where(x => x.Occupied < x.Capacity || x.Room_ID == PersonToEdit.Room.Room_ID).ToList();
         }
-        public void SetPerson(PersonModel person)
+        public async Task SetPerson(PersonModel person)
         {
             PersonToEdit = new PersonModel()
             {
@@ -177,6 +178,8 @@ namespace IValve.ViewModel
                 Status = person.Status,
                 Room = person.Room
             };
+            await RefreshAvaliableRooms();
+
             SelectedRole = Roles.ToList().FindIndex(x=>x.Role_ID == person.Role.Role_ID);
             SelectedStatus = Statuses.ToList().FindIndex(x=>x.Status_ID == person.Status.Status_ID);
             SelectedRoom = Rooms.ToList().FindIndex(x=>x.Room_ID == person.Room.Room_ID);
@@ -209,7 +212,7 @@ namespace IValve.ViewModel
                         _eventAggregator.Publish(new EditPersonEvent(PersonToEdit));
                         Close();
 
-                        AddAvaliableRooms();
+                        await RefreshAvaliableRooms();
 
                     }
                     catch (Exception ex)

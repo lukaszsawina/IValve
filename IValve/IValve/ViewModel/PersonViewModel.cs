@@ -74,17 +74,18 @@ namespace IValve.ViewModel
                 SelectedPerson = null;
         }
 
-        public void ShowNewPersonWindow()
+        public async Task ShowNewPersonWindow()
         {
+            await _newPersonView.RefreshAvaliableRooms();
             _window.ShowWindow(_newPersonView);
         }
 
-        public void ShowEditPersonWindow()
+        public async Task ShowEditPersonWindow()
         {
             if(SelectedPerson != null)
             {
+                await _editPersonView.SetPerson(PersonsList.Where(x => x.Person_ID == SelectedPerson.Person_ID).First());
                 _window.ShowWindow(_editPersonView);
-                _editPersonView.SetPerson( PersonsList.Where(x => x.Person_ID == SelectedPerson.Person_ID).First());
             }
         }
 

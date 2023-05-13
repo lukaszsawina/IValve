@@ -120,9 +120,9 @@ namespace IValve.ViewModel
             Roles = await _data.LoadDataSQL<RoleModel>(SQL);
             SQL = "SELECT * FROM Status";
             Statuses = await _data.LoadDataSQL<StatusModel>(SQL);
-            await AddAvaliableRooms();
+            await RefreshAvaliableRooms();
         }
-        private async Task AddAvaliableRooms()
+        public async Task RefreshAvaliableRooms()
         {
             var all_rooms = await _data.LoadRoomsAsync();
             Rooms = all_rooms.Where(x => x.Occupied < x.Capacity).ToList();
@@ -156,7 +156,7 @@ namespace IValve.ViewModel
                         _eventAggregator.Publish(new NewPersonEvent(NewPerson));
                         Clear();
                         ErrorMessage = "";
-                        await AddAvaliableRooms();
+                        await RefreshAvaliableRooms();
 
                     }
                     catch (Exception ex)
