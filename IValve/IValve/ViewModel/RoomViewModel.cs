@@ -2,10 +2,8 @@
 using DataAccessLibrary.Models;
 using IValve.Events;
 using Stylet;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,9 +14,14 @@ namespace IValve.ViewModel
     {
         private readonly IDataAccess _data;
         private readonly IEventAggregator _eventAggregator;
-        private BindableCollection<RoomModel> _rooms;
-        private List<PersonModel> _persons;
+
         private BindableCollection<PersonModel> _personInRoom = new BindableCollection<PersonModel>();
+        private List<PersonModel> _persons;
+        private BindableCollection<RoomModel> _rooms;
+        private int _countOfRooms;
+        private decimal _percentOfOccupied;
+        private int _countOfAvaliable;
+
 
         public BindableCollection<PersonModel> PersonInRoom
         {
@@ -32,7 +35,6 @@ namespace IValve.ViewModel
                 }
             }
         }
-
         public List<PersonModel> Persons
         {
             get { return _persons; }
@@ -45,8 +47,6 @@ namespace IValve.ViewModel
                 }
             }
         }
-
-
         public BindableCollection<RoomModel> Rooms
         {
             get { return _rooms; }
@@ -59,10 +59,6 @@ namespace IValve.ViewModel
                 }        
             }
         }
-
-
-        private int _countOfRooms;
-
         public int CountOfRooms
         {
             get { return _countOfRooms; }
@@ -75,9 +71,6 @@ namespace IValve.ViewModel
                 }
             }
         }
-
-        private decimal _percentOfOccupied;
-
         public decimal PercentOfOccupied
         {
             get { return _percentOfOccupied; }
@@ -90,9 +83,6 @@ namespace IValve.ViewModel
                 }
             }
         }
-
-        private int _countOfAvaliable;
-
         public int CountOfAvaliable
         {
             get { return _countOfAvaliable; }
@@ -120,13 +110,6 @@ namespace IValve.ViewModel
             Persons = new List<PersonModel>((await _data.LoadPersonsAsync()).OrderBy(x=>x.Person_ID));
             CalcSatatistic();
         }
-
-        private void RefreshData()
-        {
-            PersonInRoom.Refresh();
-            Rooms.Refresh();
-        }
-
         private void CalcSatatistic()
         {
             CountOfRooms = Rooms.Count;
@@ -160,7 +143,6 @@ namespace IValve.ViewModel
         public void HandleChecked(object sender, RoutedEventArgs e)
         {
             Rooms = new BindableCollection<RoomModel>(Rooms.Where(x => x.Capacity > x.Occupied));
-            Rooms.Refresh();
         }
 
         public async Task HandleUnchecked(object sender, RoutedEventArgs e)
