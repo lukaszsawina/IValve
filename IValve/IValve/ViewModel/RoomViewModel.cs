@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace IValve.ViewModel
@@ -154,6 +155,17 @@ namespace IValve.ViewModel
             Task.Run(() => InitialDataAsync()).Wait();
             if (PersonInRoom != null)
                 PersonInRoom.Refresh();
+        }
+
+        public void HandleChecked(object sender, RoutedEventArgs e)
+        {
+            Rooms = new BindableCollection<RoomModel>(Rooms.Where(x => x.Capacity > x.Occupied));
+            Rooms.Refresh();
+        }
+
+        public async Task HandleUnchecked(object sender, RoutedEventArgs e)
+        {
+            Rooms = new BindableCollection<RoomModel>((await _data.LoadRoomsAsync()).OrderBy(x => x.Room_ID));
         }
     }
 }
