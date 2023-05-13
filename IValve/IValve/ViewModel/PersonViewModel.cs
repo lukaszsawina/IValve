@@ -62,7 +62,8 @@ namespace IValve.ViewModel
         }
         public async Task LoadPersonsAsync()
         {
-            PersonsList = new BindableCollection<PersonModel>(await _data.LoadPersonsAsync());
+            PersonsList = new BindableCollection<PersonModel>((await _data.LoadPersonsAsync()).ToList().OrderBy(x=>x.Person_ID));
+            
         }
 
         public void ChangeSelectedPerson(object sender, SelectedCellsChangedEventArgs  e) 
@@ -104,7 +105,9 @@ namespace IValve.ViewModel
                 obj.Status = message.NewPerson.Status;
                 obj.Room = message.NewPerson.Room;
             }
-            SelectedPerson = message.NewPerson;
+            SelectedPerson = null;
+
+            SelectedPerson = obj;
             PersonsList.Refresh();
         }
 

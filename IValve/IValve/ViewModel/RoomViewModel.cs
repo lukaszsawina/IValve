@@ -11,7 +11,7 @@ using System.Windows.Controls;
 
 namespace IValve.ViewModel
 {
-    public class RoomViewModel : Screen, IHandle<EditPersonEvent>
+    public class RoomViewModel : Screen, IHandle<EditPersonEvent>, IHandle<NewPersonEvent>
     {
         private readonly IDataAccess _data;
         private readonly IEventAggregator _eventAggregator;
@@ -115,16 +115,22 @@ namespace IValve.ViewModel
 
         private async Task InitialDataAsync()
         {
-            Rooms = new BindableCollection<RoomModel>(await _data.LoadRoomsAsync());
-            Persons = new List<PersonModel>(await _data.LoadPersonsAsync());
+            Rooms = new BindableCollection<RoomModel>((await _data.LoadRoomsAsync()).OrderBy(x=>x.Room_ID));
+            Persons = new List<PersonModel>((await _data.LoadPersonsAsync()).OrderBy(x=>x.Person_ID));
             CalcSatatistic();
+        }
+
+        private void RefreshData()
+        {
+            PersonInRoom.Refresh();
+            Rooms.Refresh();
         }
 
         private void CalcSatatistic()
         {
             CountOfRooms = Rooms.Count;
             CountOfAvaliable = Rooms.Where(x => x.Capacity > x.Occupied).Count();
-            PercentOfOccupied = (decimal)CountOfAvaliable / (decimal)CountOfRooms *100;
+            PercentOfOccupied = (decimal)(CountOfRooms - CountOfAvaliable) / (decimal)CountOfRooms *100;
         }
 
         public void ChangeSelectedPerson(object sender, SelectedCellsChangedEventArgs e)
@@ -138,18 +144,16 @@ namespace IValve.ViewModel
 
         public void Handle(EditPersonEvent e)
         {
-            var obj = Persons.First(x=> x.Person_ID == e.NewPerson.Person_ID);
-            obj = e.NewPerson;
-            if(PersonInRoom != null)
+            Task.Run(() => InitialDataAsync()).Wait();
+            if (PersonInRoom != null)
                 PersonInRoom.Refresh();
-            Task.Run(()=> InitialDataAsync()).Wait();
-            CalcSatatistic();
         }
 
         public void Handle(NewPersonEvent e)
         {
             Task.Run(() => InitialDataAsync()).Wait();
-            CalcSatatistic();
+            if (PersonInRoom != null)
+                PersonInRoom.Refresh();
         }
     }
 }

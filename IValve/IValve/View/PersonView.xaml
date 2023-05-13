@@ -31,6 +31,7 @@
                   CanUserAddRows="False"
                   IsReadOnly="True"
 
+                  CanUserSortColumns="False"
                   SelectedCellsChanged="{s:Action ChangeSelectedPerson}"
                   Grid.ColumnSpan="2">
             <DataGrid.RowHeaderStyle>
@@ -40,7 +41,7 @@
                 </Style>
             </DataGrid.RowHeaderStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Width="*" Binding="{Binding Person_ID}"></DataGridTextColumn>
+                <DataGridTextColumn Header="ID" Width="*" Binding="{Binding Person_ID}" SortDirection="Ascending"></DataGridTextColumn>
                 <DataGridTextColumn Header="Firstname" Width="3*" Binding="{Binding Firstname}"></DataGridTextColumn>
                 <DataGridTextColumn Header="LastName" Width="3*" Binding="{Binding Lastname}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Role" Width="3*" Binding="{Binding Role.Name}"></DataGridTextColumn>
