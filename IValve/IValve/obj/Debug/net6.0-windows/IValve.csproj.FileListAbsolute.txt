@@ -60,3 +60,5 @@ C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\EditPersonVi
 C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\EditPersonView.baml
 C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\RoomView.g.cs
 C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\RoomView.baml
+C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\SupplyView.g.cs
+C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\View\SupplyView.baml
