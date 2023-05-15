@@ -6,7 +6,8 @@
         xmlns:s="https://github.com/canton7/Stylet"
         xmlns:local="clr-namespace:IValve.View"
         mc:Ignorable="d"
-        MinHeight="600" MinWidth="800">
+        ResizeMode="NoResize"
+        Height="720" Width="1280">
 
     <Window.Resources>
         <Style TargetType="Button">
@@ -43,7 +44,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="DataGridColumnHeader">
-                        <Border Background="#423D33" BorderBrush="Black" BorderThickness="0">
+                        <Border Background="#423D33" BorderThickness="0">
                             <TextBlock Text="{TemplateBinding Content}" Padding="0,5" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -71,8 +72,8 @@
         </Style>
         <Style TargetType="DataGridCell">
             <Setter Property="Background" Value="#423D33" />
-            <Setter Property="BorderThickness" Value="0,2"/>
-
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Red"/>
             <Style.Triggers>
 
                 <Trigger Property="IsSelected" Value="True">

@@ -22,19 +22,25 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
+        <Label Content="Drinks"
+               FontSize="28"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"/>
         <DataGrid 
+                  Grid.Row="1"
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
                   IsReadOnly="True"
-                  Margin="0,0,5,0"
+                  Margin="0,0,2.5,0"
                   CanUserSortColumns="False"
                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
                   SelectedCellsChanged="{s:Action ChangeSelectedPerson}"
-                  ItemsSource="{Binding Rooms}"
+                  ItemsSource="{Binding Drinks}"
                   >
             <DataGrid.RowHeaderStyle>
                 <Style TargetType="DataGridRowHeader">
@@ -43,22 +49,29 @@
                 </Style>
             </DataGrid.RowHeaderStyle>
             <DataGrid.Columns >
-                <DataGridTextColumn Header="ID" Width="*" FontSize="24" Binding="{Binding Room_ID}" SortDirection="Ascending"></DataGridTextColumn>
-                <DataGridTextColumn Header="Name" Width="2*" FontSize="24" Binding="{Binding Section.Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Amount" Width="2*" FontSize="24" Binding="{Binding FullCapacity}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Type" Width="2*" FontSize="24" Binding="{Binding FullCapacity}"></DataGridTextColumn>
+                <DataGridTextColumn Header="ID" Width="*" FontSize="24" Binding="{Binding Drink_ID}" SortDirection="Ascending"></DataGridTextColumn>
+                <DataGridTextColumn Header="Name" Width="2*" FontSize="24" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Amount" Width="2*" FontSize="24" Binding="{Binding Amount}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Type" Width="2*" FontSize="24" Binding="{Binding Type.Name}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
+        <Label Content="Food"
+               Grid.Column="1"
+               FontSize="28"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"/>
         <DataGrid Grid.Column="1"
+                  Grid.Row="1"
+                  
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
                   IsReadOnly="True"
-                  Margin="0,0,5,0"
+                  Margin="2.5,0"
                   CanUserSortColumns="False"
                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
                   SelectedCellsChanged="{s:Action ChangeSelectedPerson}"
-                  ItemsSource="{Binding Rooms}"
+                  ItemsSource="{Binding Food}"
                   >
             <DataGrid.RowHeaderStyle>
                 <Style TargetType="DataGridRowHeader">
@@ -67,22 +80,29 @@
                 </Style>
             </DataGrid.RowHeaderStyle>
             <DataGrid.Columns >
-                <DataGridTextColumn Header="ID" Width="*" FontSize="24" Binding="{Binding Room_ID}" SortDirection="Ascending"></DataGridTextColumn>
-                <DataGridTextColumn Header="Name" Width="2*" FontSize="24" Binding="{Binding Section.Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Amount" Width="2*" FontSize="24" Binding="{Binding FullCapacity}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Type" Width="2*" FontSize="24" Binding="{Binding FullCapacity}"></DataGridTextColumn>
+                <DataGridTextColumn Header="ID" Width="*" FontSize="24" Binding="{Binding Food_ID}" SortDirection="Ascending"></DataGridTextColumn>
+                <DataGridTextColumn Header="Name" Width="2*" FontSize="24" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Amount" Width="2*" FontSize="24" Binding="{Binding Amount}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Type" Width="2*" FontSize="24" Binding="{Binding Type.Name}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
 
+        <Label Content="Items"
+               Grid.Column="2"
+               FontSize="28"
+               VerticalAlignment="Center"
+               HorizontalAlignment="Center"/>
         <DataGrid Grid.Column="2"
+                  Grid.Row="1"
+                  
                   AutoGenerateColumns="False"
                   CanUserAddRows="False"
                   IsReadOnly="True"
-                  Margin="0,0,5,0"
+                  Margin="2.5,0,0,0"
                   CanUserSortColumns="False"
                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
                   SelectedCellsChanged="{s:Action ChangeSelectedPerson}"
-                  ItemsSource="{Binding Rooms}"
+                  ItemsSource="{Binding Items}"
                   >
             <DataGrid.RowHeaderStyle>
                 <Style TargetType="DataGridRowHeader">
@@ -91,23 +111,23 @@
                 </Style>
             </DataGrid.RowHeaderStyle>
             <DataGrid.Columns >
-                <DataGridTextColumn Header="ID" Width="*" FontSize="24" Binding="{Binding Room_ID}" SortDirection="Ascending"></DataGridTextColumn>
-                <DataGridTextColumn Header="Name" Width="2*" FontSize="24" Binding="{Binding Section.Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Amount" Width="2*" FontSize="24" Binding="{Binding FullCapacity}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Type" Width="2*" FontSize="24" Binding="{Binding FullCapacity}"></DataGridTextColumn>
+                <DataGridTextColumn Header="ID" Width="*" FontSize="24" Binding="{Binding Item_ID}" SortDirection="Ascending"></DataGridTextColumn>
+                <DataGridTextColumn Header="Name" Width="2*" FontSize="24" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Amount" Width="2*" FontSize="24" Binding="{Binding Amount}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Type" Width="2*" FontSize="24" Binding="{Binding Type.Name}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button Grid.Column="0"
-                Grid.Row="1"
+                Grid.Row="2"
                 Content="Add new"
                 Command="{s:Action ShowNewPersonWindow}"
                 />
         <Button Grid.Column="1"
-                Grid.Row="1"
+                Grid.Row="2"
                 Content="Statistic"
                 Command="{s:Action ShowNewPersonWindow}"
                 />
-        <Grid Grid.Row="1" Grid.Column="2">
+        <Grid Grid.Row="2" Grid.Column="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="2*"/>
