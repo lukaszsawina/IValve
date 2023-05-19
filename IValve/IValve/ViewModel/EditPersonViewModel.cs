@@ -22,6 +22,7 @@ namespace IValve.ViewModel
         public IEnumerable<RoleModel> Roles { get; set; }
         public IEnumerable<StatusModel> Statuses { get; set; }
         private IEnumerable<RoomModel> _rooms;
+
         private PersonModel _editedPerson;
         private int _selectedRole;
         private int _selectedStatus;
