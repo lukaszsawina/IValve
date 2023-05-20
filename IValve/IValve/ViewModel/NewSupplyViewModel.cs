@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using DataAccessLibrary.DbAccess;
 using DataAccessLibrary.Models;
+using FluentValidation;
 using IValve.Events;
 using IValve.Validation;
 using Stylet;
@@ -142,7 +143,7 @@ namespace IValve.ViewModel
 
                             try
                             {
-                                int newID = await _dataAccess.SaveDataSP("sp_newDrinkSP", parameters);
+                                int newID = await _dataAccess.SaveDataSP("sp_NewDrink", parameters);
                                 newDrink.Drink_ID = newID;
                                 _eventAggregator.Publish(new NewDrinkEvent(newDrink));
                                 Clear();
@@ -154,13 +155,82 @@ namespace IValve.ViewModel
                                 ErrorMessage = "Error while saving data";
                             }
                         }
+                        else
+                        {
+
+                            ErrorMessage = result.Errors.Last().ErrorMessage;
+                        }
                     }
                     break;
                 case "Food":
-                    // code block
+                    {
+                        var newFood = new FoodModel() { Name = NewSupplyName, Type = Type, Amount = Amount };
+                        var validator = new FoodValidator();
+                        var result = validator.Validate(newFood);
+
+                        if (result.IsValid)
+                        {
+                            var parameters = new DynamicParameters();
+                            parameters.Add("Name", newFood.Name);
+                            parameters.Add("Type", newFood.Type.Type_ID);
+                            parameters.Add("Amount", newFood.Amount);
+                            parameters.Add("new_id", DbType.Int32, direction: ParameterDirection.Output);
+
+                            try
+                            {
+                                int newID = await _dataAccess.SaveDataSP("sp_NewFood", parameters);
+                                newFood.Food_ID = newID;
+                                _eventAggregator.Publish(new NewFoodEvent(newFood));
+                                Clear();
+                                ErrorMessage = "";
+
+                            }
+                            catch (Exception ex)
+                            {
+                                ErrorMessage = "Error while saving data";
+                            }
+                        }
+                        else
+                        {
+
+                            ErrorMessage = result.Errors.Last().ErrorMessage;
+                        }
+                    }
                     break;
                 case "Item":
-                    // code block
+                    {
+                        var newItem = new ItemModel() { Name = NewSupplyName, Type = Type, Amount = (int)Amount };
+                        var validator = new ItemValidator();
+                        var result = validator.Validate(newItem);
+
+                        if (result.IsValid)
+                        {
+                            var parameters = new DynamicParameters();
+                            parameters.Add("Name", newItem.Name);
+                            parameters.Add("Type", newItem.Type.Type_ID);
+                            parameters.Add("Amount", newItem.Amount);
+                            parameters.Add("new_id", DbType.Int32, direction: ParameterDirection.Output);
+
+                            try
+                            {
+                                int newID = await _dataAccess.SaveDataSP("sp_NewItem", parameters);
+                                newItem.Item_ID = newID;
+                                _eventAggregator.Publish(new NewItemEvent(newItem));
+                                Clear();
+                                ErrorMessage = "";
+
+                            }
+                            catch (Exception ex)
+                            {
+                                ErrorMessage = "Error while saving data";
+                            }
+                        }
+                        else
+                        {
+
+                            ErrorMessage = result.Errors.Last().ErrorMessage;
+                        }
+                    }
                     break;
                 default:
                     ErrorMessage = "Invalid option selected";

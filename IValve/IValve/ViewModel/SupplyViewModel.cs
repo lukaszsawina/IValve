@@ -1,5 +1,6 @@
 ﻿using DataAccessLibrary.DbAccess;
 using DataAccessLibrary.Models;
+using IValve.Events;
 using Stylet;
 using System;
 using System.Collections.Generic;
@@ -9,11 +10,12 @@ using System.Threading.Tasks;
 
 namespace IValve.ViewModel
 {
-    public class SupplyViewModel : Screen
+    public class SupplyViewModel : Screen, IHandle<NewDrinkEvent>, IHandle<NewFoodEvent>, IHandle<NewItemEvent>
     {
         private readonly IDataAccess _data;
         private readonly IWindowManager _window;
         private readonly NewSupplyViewModel _newSupplyView;
+        private readonly IEventAggregator _eventAggregator;
         private BindableCollection<DrinkModel> _drinks;
         private BindableCollection<FoodModel> _food;
         private BindableCollection<ItemModel> _items;
@@ -58,11 +60,13 @@ namespace IValve.ViewModel
         }
 
 
-        public SupplyViewModel(IDataAccess data, IWindowManager window, NewSupplyViewModel newSupplyView)
+        public SupplyViewModel(IDataAccess data, IWindowManager window, NewSupplyViewModel newSupplyView, IEventAggregator eventAggregator)
         {
             _data = data;
             _window = window;
             _newSupplyView = newSupplyView;
+            _eventAggregator = eventAggregator;
+            _eventAggregator.Subscribe(this);
             Task.Run(() => InitialData()).Wait();
         }
 
@@ -78,5 +82,19 @@ namespace IValve.ViewModel
         {
             _window.ShowWindow(_newSupplyView);
         }
+
+        public void Handle(NewDrinkEvent drink) 
+        {
+            Drinks.Add(drink.Drink);
+        }
+        public void Handle(NewFoodEvent food)
+        {
+            Food.Add(food.Food);
+        }
+        public void Handle(NewItemEvent item)
+        {
+            Items.Add(item.Item);
+        }
+
     }
 }
