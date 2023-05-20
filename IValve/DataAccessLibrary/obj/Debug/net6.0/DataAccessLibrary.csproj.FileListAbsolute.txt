@@ -11,3 +11,16 @@ C:\dev\C#\IValveProject\IValve\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibr
 C:\dev\C#\IValveProject\IValve\DataAccessLibrary\obj\Debug\net6.0\refint\DataAccessLibrary.dll
 C:\dev\C#\IValveProject\IValve\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.pdb
 C:\dev\C#\IValveProject\IValve\DataAccessLibrary\obj\Debug\net6.0\ref\DataAccessLibrary.dll
+C:\dev\c#\IValve\IValve\DataAccessLibrary\bin\Debug\net6.0\DataAccessLibrary.dll.config
+C:\dev\c#\IValve\IValve\DataAccessLibrary\bin\Debug\net6.0\DataAccessLibrary.deps.json
+C:\dev\c#\IValve\IValve\DataAccessLibrary\bin\Debug\net6.0\DataAccessLibrary.dll
+C:\dev\c#\IValve\IValve\DataAccessLibrary\bin\Debug\net6.0\DataAccessLibrary.pdb
+C:\dev\c#\IValve\IValve\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.csproj.AssemblyReference.cache
+C:\dev\c#\IValve\IValve\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\c#\IValve\IValve\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.AssemblyInfoInputs.cache
+C:\dev\c#\IValve\IValve\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.AssemblyInfo.cs
+C:\dev\c#\IValve\IValve\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.csproj.CoreCompileInputs.cache
+C:\dev\c#\IValve\IValve\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.dll
+C:\dev\c#\IValve\IValve\DataAccessLibrary\obj\Debug\net6.0\refint\DataAccessLibrary.dll
+C:\dev\c#\IValve\IValve\DataAccessLibrary\obj\Debug\net6.0\DataAccessLibrary.pdb
+C:\dev\c#\IValve\IValve\DataAccessLibrary\obj\Debug\net6.0\ref\DataAccessLibrary.dll

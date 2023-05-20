@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessLibrary.Models
 {
-    public class SupplyType
+    public class SupplyTypeModel
     {
         public int Type_ID { get; set; }
         public string Name { get; set; }

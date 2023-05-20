@@ -11,6 +11,6 @@ namespace DataAccessLibrary.Models
         public int Item_ID { get; set; } 
         public string Name { get; set; }
         public int Amount { get; set; }
-        public SupplyType Type { get; set; }
+        public SupplyTypeModel Type { get; set; }
     }
 }

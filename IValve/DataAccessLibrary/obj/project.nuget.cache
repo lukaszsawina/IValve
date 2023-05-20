@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2y7U0B48f0pQoZWL4Xq7tBauqGYJjigEZ9aVhafoovgVoc2k0t3CEevyzZJLsdmMC+DBYRlmQ6Y8vKIv6TNnnw==",
+  "dgSpecHash": "QA/mQ13CdKlxdQSKvwv4/5Qbb7QU55v9Y/tiZA8D39Wk5gPknrTnGVbSfycGDsiSBJodTOicz9wbZfapUG8Qbw==",
   "success": true,
-  "projectFilePath": "C:\\dev\\C#\\IValveProject\\IValve\\DataAccessLibrary\\DataAccessLibrary.csproj",
+  "projectFilePath": "C:\\dev\\c#\\IValve\\IValve\\DataAccessLibrary\\DataAccessLibrary.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lukis\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\lukis\\.nuget\\packages\\google.protobuf\\3.21.9\\google.protobuf.3.21.9.nupkg.sha512",

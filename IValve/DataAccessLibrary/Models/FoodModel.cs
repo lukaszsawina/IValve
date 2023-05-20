@@ -11,6 +11,6 @@ namespace DataAccessLibrary.Models
         public int Food_ID { get; set; }
         public string Name { get; set; }
         public decimal Amount { get; set; }
-        public SupplyType Type { get; set; }
+        public SupplyTypeModel Type { get; set; }
     }
 }

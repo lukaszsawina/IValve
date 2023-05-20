@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\dev\C#\IValveProject\IValve\IValve\obj\Debug\net6.0-windows\
+C:\dev\c#\IValve\IValve\IValve\obj\Debug\net6.0-windows\
 IValve
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-C:\dev\C#\IValveProject\IValve\IValve\App.xaml
-61460029149
+C:\dev\c#\IValve\IValve\IValve\App.xaml
+7-10011765
 
-20-1885348212
-2091467847826
-View\EditPersonView.xaml;View\NewPersonView.xaml;View\PersonView.xaml;View\RoomView.xaml;View\RootView.xaml;View\SupplyView.xaml;
+261007166318
+209-80898093
+View\EditPersonView.xaml;View\NewPersonView.xaml;View\NewSupplyView.xaml;View\PersonView.xaml;View\RoomView.xaml;View\RootView.xaml;View\SupplyView.xaml;
 
-False
+True
 

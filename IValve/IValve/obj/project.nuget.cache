@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "E9U4A9ozl7IHUa3Nci82Y4CJs1EfsF/suSRQQ6xpNTDL7MeCUh79/W1XOHAKK50vCEow1dhhmblPRl5T9+AT5g==",
+  "dgSpecHash": "rt7841iz0y6SUlWW4lgQWDHZuH2QWyCyws/kILnt1TsCMxO8vsttghqgNKMWoGiLW7gRaRjalhxVB+eBazjKiA==",
   "success": true,
-  "projectFilePath": "C:\\dev\\C#\\IValveProject\\IValve\\IValve\\IValve.csproj",
+  "projectFilePath": "C:\\dev\\c#\\IValve\\IValve\\IValve\\IValve.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\lukis\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\lukis\\.nuget\\packages\\fluentvalidation\\11.5.2\\fluentvalidation.11.5.2.nupkg.sha512",

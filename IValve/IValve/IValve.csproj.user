@@ -13,6 +13,9 @@
     <Compile Update="View\NewPersonView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\NewSupplyView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\PersonView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -31,6 +34,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\NewPersonView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\NewSupplyView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\PersonView.xaml">

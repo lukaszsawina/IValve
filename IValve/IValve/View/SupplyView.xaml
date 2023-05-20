@@ -51,7 +51,7 @@
             <DataGrid.Columns >
                 <DataGridTextColumn Header="ID" Width="*" FontSize="24" Binding="{Binding Drink_ID}" SortDirection="Ascending"></DataGridTextColumn>
                 <DataGridTextColumn Header="Name" Width="2*" FontSize="24" Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Amount" Width="2*" FontSize="24" Binding="{Binding Amount}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Amount" Width="*" FontSize="24" Binding="{Binding Amount}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Type" Width="2*" FontSize="24" Binding="{Binding Type.Name}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
@@ -82,7 +82,7 @@
             <DataGrid.Columns >
                 <DataGridTextColumn Header="ID" Width="*" FontSize="24" Binding="{Binding Food_ID}" SortDirection="Ascending"></DataGridTextColumn>
                 <DataGridTextColumn Header="Name" Width="2*" FontSize="24" Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Amount" Width="2*" FontSize="24" Binding="{Binding Amount}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Amount" Width="*" FontSize="24" Binding="{Binding Amount}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Type" Width="2*" FontSize="24" Binding="{Binding Type.Name}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
@@ -113,14 +113,14 @@
             <DataGrid.Columns >
                 <DataGridTextColumn Header="ID" Width="*" FontSize="24" Binding="{Binding Item_ID}" SortDirection="Ascending"></DataGridTextColumn>
                 <DataGridTextColumn Header="Name" Width="2*" FontSize="24" Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Amount" Width="2*" FontSize="24" Binding="{Binding Amount}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Amount" Width="*" FontSize="24" Binding="{Binding Amount}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Type" Width="2*" FontSize="24" Binding="{Binding Type.Name}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button Grid.Column="0"
                 Grid.Row="2"
                 Content="Add new"
-                Command="{s:Action ShowNewPersonWindow}"
+                Command="{s:Action ShowNewSupplyWindow}"
                 />
         <Button Grid.Column="1"
                 Grid.Row="2"

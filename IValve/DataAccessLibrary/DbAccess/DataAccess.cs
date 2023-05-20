@@ -35,7 +35,7 @@ namespace DataAccessLibrary.DbAccess
             using (IDbConnection connection = new MySqlConnection(Helper.Connection(connectionName)))
             {
                 string sql_query = "SELECT d.Drink_ID, d.Name, d.Amount, st.* FROM drinks as d INNER JOIN supplytypes as st ON st.Type_ID = d.Type";
-                var values = await connection.QueryAsync<DrinkModel, SupplyType, DrinkModel>(sql_query, (drink, type) =>
+                var values = await connection.QueryAsync<DrinkModel, SupplyTypeModel, DrinkModel>(sql_query, (drink, type) =>
                 {
                     drink.Type = type;
                     return drink;
@@ -50,7 +50,7 @@ namespace DataAccessLibrary.DbAccess
             using (IDbConnection connection = new MySqlConnection(Helper.Connection(connectionName)))
             {
                 string sql_query = "SELECT f.Food_ID, f.Name, f.Amount, st.* FROM food as f INNER JOIN supplytypes as st ON st.Type_ID = f.Type";
-                var values = await connection.QueryAsync<FoodModel, SupplyType, FoodModel>(sql_query, (food, type) =>
+                var values = await connection.QueryAsync<FoodModel, SupplyTypeModel, FoodModel>(sql_query, (food, type) =>
                 {
                     food.Type = type;
                     return food;
@@ -65,7 +65,7 @@ namespace DataAccessLibrary.DbAccess
             using (IDbConnection connection = new MySqlConnection(Helper.Connection(connectionName)))
             {
                 string sql_query = "SELECT i.Item_ID, i.Name, i.Amount, st.* FROM items as i INNER JOIN supplytypes as st ON st.Type_ID = i.Type";
-                var values = await connection.QueryAsync<ItemModel, SupplyType, ItemModel>(sql_query, (item, type) =>
+                var values = await connection.QueryAsync<ItemModel, SupplyTypeModel, ItemModel>(sql_query, (item, type) =>
                 {
                     item.Type = type;
                     return item;
