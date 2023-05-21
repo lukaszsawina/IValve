@@ -1,12 +1,15 @@
-﻿using DataAccessLibrary.DbAccess;
+﻿using Dapper;
+using DataAccessLibrary.DbAccess;
 using DataAccessLibrary.Models;
 using IValve.Events;
+using IValve.Validation;
 using Stylet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace IValve.ViewModel
 {
@@ -19,6 +22,21 @@ namespace IValve.ViewModel
         private BindableCollection<DrinkModel> _drinks;
         private BindableCollection<FoodModel> _food;
         private BindableCollection<ItemModel> _items;
+        private BasicSupplyModel _selected = new BasicSupplyModel();
+
+        public BasicSupplyModel Selected
+        {
+            get { return _selected; }
+            set
+            {
+                if (_selected != value)
+                {
+                    _selected = value;
+                    NotifyOfPropertyChange(nameof(Selected));
+                }
+            }
+        }
+
 
         public BindableCollection<DrinkModel> Drinks
         {
@@ -83,6 +101,150 @@ namespace IValve.ViewModel
             _window.ShowWindow(_newSupplyView);
         }
 
+        public void ChangeSelectedSupplyDrink(object sender, SelectedCellsChangedEventArgs e)
+        {
+            var s = (DrinkModel)e.AddedCells[0].Item;
+
+            Selected = new BasicSupplyModel()
+            {
+                Name = s.Name,
+                ID = s.Drink_ID,
+                Amount = s.Amount,
+                Option = "Drink"
+            };
+        }
+        public void ChangeSelectedSupplyFood(object sender, SelectedCellsChangedEventArgs e)
+        {
+            var s = (FoodModel)e.AddedCells[0].Item;
+
+            Selected = new BasicSupplyModel()
+            {
+                Name = s.Name,
+                ID = s.Food_ID,
+                Amount = s.Amount,
+                Option = "Food"
+            };
+        }
+        public void ChangeSelectedSupplyItem(object sender, SelectedCellsChangedEventArgs e)
+        {
+            var s = (ItemModel)e.AddedCells[0].Item;
+
+            Selected = new BasicSupplyModel()
+            {
+                Name = s.Name,
+                ID = s.Item_ID,
+                Amount = s.Amount,
+                Option = "Item"
+            };
+        }
+
+        public void Increase()
+        {
+            if(Selected!= null)
+            {
+                Selected = new BasicSupplyModel()
+                {
+                    Name = Selected.Name,
+                    ID = Selected.ID,
+                    Amount = Selected.Amount + 0.1M,
+                    Option = Selected.Option
+                };
+            }
+        }
+        public void Decrease()
+        {
+            if(Selected != null)
+            {
+                Selected = new BasicSupplyModel()
+                {
+                    Name = Selected.Name,
+                    ID = Selected.ID,
+                    Amount = Selected.Amount - 0.1M,
+                    Option = Selected.Option
+                };
+            }
+        }
+        public async Task Confirm()
+        {
+            switch(Selected.Option) 
+            {
+                case "Drink":
+                    {
+
+                        var parameters = new DynamicParameters();
+                        parameters.Add("ID", Selected.ID);
+                        parameters.Add("Amount", Selected.Amount);
+                        parameters.Add("Option", Selected.Option);
+
+                        try
+                        {
+                            await _data.UpdateDataSP("sp_EditSupply", parameters);
+
+                            var obj = Drinks.FirstOrDefault(x => x.Drink_ID == Selected.ID);
+                            if (obj != null)
+                                obj.Amount = Selected.Amount;
+
+                            Selected = null;
+                            Drinks.Refresh();
+                        }
+                        catch (Exception ex)
+                        {
+                            
+                        }
+                    }
+                    break;
+                case "Food":
+                    {
+                        var parameters = new DynamicParameters();
+                        parameters.Add("ID", Selected.ID);
+                        parameters.Add("Amount", Selected.Amount);
+                        parameters.Add("Option", Selected.Option);
+
+                        try
+                        {
+                            await _data.UpdateDataSP("sp_EditSupply", parameters);
+
+                            var obj = Food.FirstOrDefault(x => x.Food_ID == Selected.ID);
+                            if (obj != null)
+                                obj.Amount = Selected.Amount;
+
+                            Selected = null;
+                            Food.Refresh();
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                    break;
+                case "Item":
+                    {
+                        var parameters = new DynamicParameters();
+                        parameters.Add("ID", Selected.ID);
+                        parameters.Add("Amount", Selected.Amount);
+                        parameters.Add("Option", Selected.Option);
+
+                        try
+                        {
+                            await _data.UpdateDataSP("sp_EditSupply", parameters);
+
+                            var obj = Items.FirstOrDefault(x => x.Item_ID == Selected.ID);
+                            if (obj != null)
+                                obj.Amount = (int)Selected.Amount;
+
+                            Selected = null;
+                            Items.Refresh();
+                        }
+                        catch (Exception ex)
+                        {
+
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
         public void Handle(NewDrinkEvent drink) 
         {
             Drinks.Add(drink.Drink);
@@ -95,6 +257,7 @@ namespace IValve.ViewModel
         {
             Items.Add(item.Item);
         }
+
 
     }
 }

@@ -39,7 +39,7 @@
                   Margin="0,0,2.5,0"
                   CanUserSortColumns="False"
                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                  SelectedCellsChanged="{s:Action ChangeSelectedPerson}"
+                  SelectedCellsChanged="{s:Action ChangeSelectedSupplyDrink}"
                   ItemsSource="{Binding Drinks}"
                   >
             <DataGrid.RowHeaderStyle>
@@ -70,7 +70,7 @@
                   Margin="2.5,0"
                   CanUserSortColumns="False"
                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                  SelectedCellsChanged="{s:Action ChangeSelectedPerson}"
+                  SelectedCellsChanged="{s:Action ChangeSelectedSupplyFood}"
                   ItemsSource="{Binding Food}"
                   >
             <DataGrid.RowHeaderStyle>
@@ -101,7 +101,7 @@
                   Margin="2.5,0,0,0"
                   CanUserSortColumns="False"
                   ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                  SelectedCellsChanged="{s:Action ChangeSelectedPerson}"
+                  SelectedCellsChanged="{s:Action ChangeSelectedSupplyItem}"
                   ItemsSource="{Binding Items}"
                   >
             <DataGrid.RowHeaderStyle>
@@ -136,31 +136,40 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
 
             <Button Grid.Column="0"
-                Grid.RowSpan="2"
+                Grid.RowSpan="3"
                 Content="-"
                 FontWeight="ExtraBold"
-                Command="{s:Action ShowNewPersonWindow}"
+                Command="{s:Action Decrease}"
                 />
 
-            <Label Content="Nazwa:"
+            <TextBlock
                    Grid.Column="1"
                    VerticalAlignment="Bottom"
-                   HorizontalAlignment="Center"/>
-            <TextBlock Text="12"
-                       Grid.Column="1"
+                   TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"
+                   HorizontalAlignment="Center">
+                <Run Text="Name:" />
+                <Run Text="{Binding Selected.Name}" />
+            </TextBlock>
+            <TextBlock Grid.Column="1"
                        VerticalAlignment="Top"
                        HorizontalAlignment="Center"
+                       Text="{Binding Selected.Amount}"
                        Grid.Row="1"/>
-
+            <Button Grid.Column="1"
+                    Grid.Row="2"
+                Content="Confirm"
+                Command="{s:Action Confirm}"
+                />
             <Button Grid.Column="2"
-                Grid.RowSpan="2"
+                Grid.RowSpan="3"
                 Content="+"
                 FontWeight="ExtraBold"
-                Command="{s:Action ShowNewPersonWindow}"
+                Command="{s:Action Increase}"
                 />
 
         </Grid>
