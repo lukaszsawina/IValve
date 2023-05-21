@@ -43,7 +43,7 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Width="*" Binding="{Binding Person_ID}" SortDirection="Ascending"></DataGridTextColumn>
                 <DataGridTextColumn Header="Firstname" Width="3*" Binding="{Binding Firstname}"></DataGridTextColumn>
-                <DataGridTextColumn Header="LastName" Width="3*" Binding="{Binding Lastname}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Lasname" Width="3*" Binding="{Binding Lastname}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Role" Width="3*" Binding="{Binding Role.Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Room" Width="3*" Binding="{Binding Room.Room_ID}"></DataGridTextColumn>
             </DataGrid.Columns>

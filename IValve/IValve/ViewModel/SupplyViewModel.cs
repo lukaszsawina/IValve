@@ -18,6 +18,7 @@ namespace IValve.ViewModel
         private readonly IDataAccess _data;
         private readonly IWindowManager _window;
         private readonly NewSupplyViewModel _newSupplyView;
+        private readonly StatisticViewModel _statisticView;
         private readonly IEventAggregator _eventAggregator;
         private BindableCollection<DrinkModel> _drinks;
         private BindableCollection<FoodModel> _food;
@@ -78,11 +79,12 @@ namespace IValve.ViewModel
         }
 
 
-        public SupplyViewModel(IDataAccess data, IWindowManager window, NewSupplyViewModel newSupplyView, IEventAggregator eventAggregator)
+        public SupplyViewModel(IDataAccess data, IWindowManager window, NewSupplyViewModel newSupplyView, StatisticViewModel statisticView, IEventAggregator eventAggregator)
         {
             _data = data;
             _window = window;
             _newSupplyView = newSupplyView;
+            _statisticView = statisticView;
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
             Task.Run(() => InitialData()).Wait();
@@ -99,6 +101,14 @@ namespace IValve.ViewModel
         public void ShowNewSupplyWindow()
         {
             _window.ShowWindow(_newSupplyView);
+        }
+
+        public void ShowStatisticWindow()
+        {
+            _statisticView.Statistic.TotalDrink = Drinks.Sum(x => x.Amount);
+            _statisticView.Statistic.TotalFood = Food.Sum(x => x.Amount);
+            _statisticView.CalcStat();
+            _window.ShowWindow(_statisticView);
         }
 
         public void ChangeSelectedSupplyDrink(object sender, SelectedCellsChangedEventArgs e)
@@ -140,26 +150,37 @@ namespace IValve.ViewModel
 
         public void Increase()
         {
-            if(Selected!= null)
+            if(Selected != null)
             {
+                decimal newAmount;
+                if (Selected.Option == "Item")
+                    newAmount = Selected.Amount + 1.0M;
+                else
+                    newAmount = Selected.Amount + 0.1M;
+
                 Selected = new BasicSupplyModel()
                 {
                     Name = Selected.Name,
                     ID = Selected.ID,
-                    Amount = Selected.Amount + 0.1M,
+                    Amount = newAmount,
                     Option = Selected.Option
                 };
             }
         }
         public void Decrease()
         {
-            if(Selected != null)
+            decimal newAmount;
+            if (Selected.Option == "Item")
+                newAmount = Selected.Amount - 1.0M;
+            else
+                newAmount = Selected.Amount - 0.1M;
+            if (Selected != null)
             {
                 Selected = new BasicSupplyModel()
                 {
                     Name = Selected.Name,
                     ID = Selected.ID,
-                    Amount = Selected.Amount - 0.1M,
+                    Amount = newAmount,
                     Option = Selected.Option
                 };
             }
