@@ -105,6 +105,34 @@ namespace DataAccessLibrary.DbAccess
                 return values.ToList();
             }
         }
+
+        public async Task<IEnumerable<JobModel>> LoadJobsAsync(string connectionName = "Default")
+        {
+            using (IDbConnection connection = new MySqlConnection(Helper.Connection(connectionName)))
+            {
+                string sql_query = "SELECT j.Job_ID, j.Name, j.Description, j.Deadline, jt.Type_ID, jt.Name, p.Person_ID, p.Firstname, p.Lastname FROM jobs as j INNER JOIN jobtypes as jt ON jt.Type_ID = j.JobType INNER JOIN personjobs as pj ON pj.Job_ID = j.Job_ID INNER JOIN person as p ON p.Person_ID = pj.Person_ID;";
+                var jobDictionary = new Dictionary<int, JobModel>();
+                var values = (await connection.QueryAsync<JobModel, JobTypeModel, PersonModel, JobModel>(sql_query, (job, jobtype, persons) =>
+                {
+                    JobModel mappedJob;
+                    if (!jobDictionary.TryGetValue(job.Job_ID, out mappedJob))
+                    {
+                        mappedJob = job;
+                        mappedJob.Type = jobtype;
+                        mappedJob.Persons = new List<PersonModel>();
+                        jobDictionary.Add(mappedJob.Job_ID, mappedJob);
+                    }
+
+
+
+                    mappedJob.Persons.Add(persons);
+                    return mappedJob;
+                },
+            splitOn: "Type_ID, Person_ID"
+            )).Distinct().ToList();
+                return values.ToList();
+            }
+        }
         public async Task<int> SaveDataSP(string storedProcedure, DynamicParameters parameters, string connectionName = "Default")
         {
             using (IDbConnection connection = new MySqlConnection(Helper.Connection(connectionName)))

@@ -132,3 +132,7 @@ C:\dev\c#\IValve\IValve\IValve\obj\Debug\net6.0-windows\View\StatisticView.g.cs
 C:\dev\c#\IValve\IValve\IValve\obj\Debug\net6.0-windows\View\StatisticView.baml
 C:\dev\c#\IValve\IValve\IValve\obj\Debug\net6.0-windows\View\LogoView.g.cs
 C:\dev\c#\IValve\IValve\IValve\obj\Debug\net6.0-windows\View\LogoView.baml
+C:\dev\c#\IValve\IValve\IValve\obj\Debug\net6.0-windows\View\JobView.g.cs
+C:\dev\c#\IValve\IValve\IValve\obj\Debug\net6.0-windows\View\JobView.baml
+C:\dev\c#\IValve\IValve\IValve\obj\Debug\net6.0-windows\View\NewJobView.g.cs
+C:\dev\c#\IValve\IValve\IValve\obj\Debug\net6.0-windows\View\NewJobView.baml

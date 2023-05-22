@@ -10,7 +10,13 @@
     <Compile Update="View\EditPersonView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\JobView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\LogoView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\NewJobView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\NewPersonView.xaml.cs">
@@ -39,7 +45,13 @@
     <Page Update="View\EditPersonView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="View\JobView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="View\LogoView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\NewJobView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\NewPersonView.xaml">

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\dev\c#\IValve\IValve\IValve\App.xaml
-9-1480834926
+11-1845103657
 
-30-83593675
+361403072851
 209-80898093
-View\EditPersonView.xaml;View\LogoView.xaml;View\NewPersonView.xaml;View\NewSupplyView.xaml;View\PersonView.xaml;View\RoomView.xaml;View\RootView.xaml;View\StatisticView.xaml;View\SupplyView.xaml;
+View\EditPersonView.xaml;View\JobView.xaml;View\LogoView.xaml;View\NewJobView.xaml;View\NewPersonView.xaml;View\NewSupplyView.xaml;View\PersonView.xaml;View\RoomView.xaml;View\RootView.xaml;View\StatisticView.xaml;View\SupplyView.xaml;
 
 False
 

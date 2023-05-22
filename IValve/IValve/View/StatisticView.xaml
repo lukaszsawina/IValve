@@ -6,7 +6,10 @@
         xmlns:local="clr-namespace:IValve.View"
         xmlns:s="https://github.com/canton7/Stylet"
         mc:Ignorable="d"
-        Title="StatisticView" Height="450" Width="500">
+        Icon="C:\dev\c#\IValve\IValve\IValve\valve.png"
+        ResizeMode="NoResize"
+        Title="IValve"
+        Height="450" Width="500">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Background" Value="#424242" ></Setter>
