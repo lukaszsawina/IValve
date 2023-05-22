@@ -5,6 +5,7 @@
              xmlns:local="clr-namespace:IValve">
     <Application.Resources>
 
+
         <s:ApplicationLoader>
             <s:ApplicationLoader.Bootstrapper>
                 <local:Bootstrapper/>
@@ -12,6 +13,7 @@
             </s:ApplicationLoader.Bootstrapper>
 
         </s:ApplicationLoader>
+        
 
     </Application.Resources>
     

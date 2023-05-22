@@ -54,7 +54,7 @@ namespace IValve.View {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/IValve;V1.0.0.0;component/view/roomview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/IValve;component/view/roomview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\View\RoomView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);
