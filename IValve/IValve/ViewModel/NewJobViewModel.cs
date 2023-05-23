@@ -4,6 +4,7 @@ using DataAccessLibrary.Models;
 using IValve.Events;
 using IValve.Validation;
 using Stylet;
+using StyletIoC;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -90,7 +91,8 @@ namespace IValve.ViewModel
                 NotifyOfPropertyChange(nameof(NewJob));
             }
         }
-        
+
+        [Inject]
         public NewJobViewModel(IDataAccess data, IEventAggregator eventAggregator)
         {
             _data = data;

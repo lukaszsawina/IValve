@@ -1,4 +1,5 @@
-﻿using DataAccessLibrary.DbAccess;
+﻿using Dapper;
+using DataAccessLibrary.DbAccess;
 using DataAccessLibrary.Models;
 using IValve.Events;
 using Stylet;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace IValve.ViewModel
@@ -18,7 +20,7 @@ namespace IValve.ViewModel
         private readonly NewJobViewModel _newJobView;
         private readonly IEventAggregator _eventAggregator;
         private BindableCollection<JobModel> _jobs = new BindableCollection<JobModel>();
-        private JobModel _selectedJob = new JobModel();
+        private JobModel _selectedJob;
 
         public JobModel SelectedJob
         {
@@ -78,6 +80,32 @@ namespace IValve.ViewModel
         public void Add()
         {
             _window.ShowWindow(_newJobView);
+        }
+
+        public async Task Done()
+        {
+            if (SelectedJob != null)
+            {
+                MessageBoxResult result = _window.ShowMessageBox(
+                    "Are you sure?",
+                    "Confirm",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    int id = SelectedJob.Job_ID;
+                    SelectedJob = null;
+                    var parameters = new DynamicParameters();
+                    parameters.Add("JobID", id);
+                    await _data.UpdateDataSP("sp_DeleteJob", parameters);
+                    Jobs.Remove(Jobs.Where(x => x.Job_ID == id).First());
+                    Jobs.Refresh();
+                }
+            }
+
+            
+
         }
     }
 }

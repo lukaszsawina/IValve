@@ -169,13 +169,14 @@ namespace IValve.ViewModel
         }
         public void Decrease()
         {
-            decimal newAmount;
-            if (Selected.Option == "Item")
-                newAmount = Selected.Amount - 1.0M;
-            else
-                newAmount = Selected.Amount - 0.1M;
+
             if (Selected != null)
             {
+                decimal newAmount;
+                if (Selected.Option == "Item")
+                    newAmount = Selected.Amount - 1.0M;
+                else
+                    newAmount = Selected.Amount - 0.1M;
                 Selected = new BasicSupplyModel()
                 {
                     Name = Selected.Name,

@@ -5,6 +5,7 @@ using FluentValidation;
 using IValve.Events;
 using IValve.Validation;
 using Stylet;
+using StyletIoC;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -104,6 +105,7 @@ namespace IValve.ViewModel
             }
         }
 
+        [Inject]
         public NewSupplyViewModel(IDataAccess dataAccess, IEventAggregator eventAggregator )
         {
             _dataAccess = dataAccess;

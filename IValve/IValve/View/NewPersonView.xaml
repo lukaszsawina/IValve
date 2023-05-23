@@ -215,21 +215,21 @@
                    Foreground="#FAF9F7"
                    FontWeight="Medium"/>
         <StackPanel Grid.Row="1">
-            <Label Content="Name" 
+            <Label Content="First name" 
                />
             <TextBox Text="{Binding NewPerson.Firstname, Mode=TwoWay}"/>
         </StackPanel>
         <StackPanel Grid.Row="1"
                     Grid.Column="1">
-            <Label Content="LastName" 
+            <Label Content="Last name" 
                />
             <TextBox Text="{Binding NewPerson.Lastname, Mode=TwoWay}"/>
         </StackPanel>
         <StackPanel Grid.Row="2"
                     Grid.ColumnSpan="2">
-            <Label Content="Birthday" 
+            <Label Content="Birthday (MM.DD.YYYY)" 
                />
-            <DatePicker Text="{Binding NewPerson.BirthDate, Mode=TwoWay}"/>
+            <DatePicker Text="{Binding NewPerson.BirthDate, Mode=TwoWay}" />
         </StackPanel>
         <StackPanel Grid.Row="3"
                     Grid.Column="0">
@@ -262,7 +262,14 @@
             <ComboBox  ItemsSource="{Binding Rooms}" SelectedItem="{Binding NewPerson.Room, Mode=TwoWay}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <TextBlock Text="{Binding Room_ID}"  />
+                        <TextBlock >
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="Room_ID" />
+                                    <Binding Path="Section.Name" />
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>

@@ -85,7 +85,7 @@
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Grid.Row="1">
-                    <Label Content="Tytle:"
+                    <Label Content="Title:"
                            VerticalAlignment="Bottom"/>
                     <TextBlock 
                        
@@ -137,8 +137,8 @@
                 </DataGrid>
             </Grid>
             
-            <Button Content="Done" Grid.Row="1"/>
-            <Button Content="Save" Grid.Row="1" Grid.Column="1"/>
+            <Button Content="Done" Command="{s:Action Done}" Grid.Row="1" Grid.ColumnSpan="2"/>
+            
 
         </Grid>
         
